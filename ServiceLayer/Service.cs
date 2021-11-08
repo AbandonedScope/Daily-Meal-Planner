@@ -44,5 +44,10 @@ namespace ServiceLayer
 
             return m_productDAO.GetProduct(name);
         }
+
+        public static HashSet<Product> GetProductsByCategory(string categoryName)
+        {
+            return GetCategory(categoryName).Products;
+        }
     }
 }
