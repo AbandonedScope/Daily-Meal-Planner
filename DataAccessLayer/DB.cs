@@ -8,7 +8,8 @@ namespace DataAccessLayer
 {
     public class Db
     {
-        private static HashSet<Category> m_categories;
+        [XmlArray("Categories")]
+        private HashSet<Category> m_categories;
         private static Db m_instance;
 
         private Db()
@@ -33,6 +34,14 @@ namespace DataAccessLayer
                     m_instance = new();
                 }
                 return m_instance;
+            }
+        }
+
+        public HashSet<Category> Categories
+        {
+            get
+            {
+                return m_categories;
             }
         }
 
