@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BusinessLayer
 {
     public class Category : Regularable
     {
+        [XmlAttribute("name")]
         private string m_name;
+        [XmlAttribute("description")]
         private string m_description;
         private HashSet<Product> m_products;
         public string Name
