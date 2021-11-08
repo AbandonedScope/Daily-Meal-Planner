@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BusinessLayer;
 using DataAccessLayer;
 
@@ -13,6 +14,35 @@ namespace ServiceLayer
         {
             m_categoryDAO = new CategoryDAO(path);
             m_productDAO = new ProductDAO(path);
+        }
+
+        public static Category GetCategory(string name)
+        {
+            if (m_categoryDAO == null)
+            {
+                throw new ArgumentNullException(nameof(m_categoryDAO));
+            }
+
+            return m_categoryDAO.GetCategory(name);
+        }
+
+        public static HashSet<Category> GetCategories()
+        {
+            if (m_categoryDAO == null)
+            {
+                throw new ArgumentNullException(nameof(m_categoryDAO));
+            }
+            return m_categoryDAO.GetCategories();
+        }
+
+        public static Product GetProduct(string name)
+        {
+            if (m_productDAO == null)
+            {
+                throw new ArgumentNullException(nameof(m_productDAO));
+            }
+
+            return m_productDAO.GetProduct(name);
         }
     }
 }

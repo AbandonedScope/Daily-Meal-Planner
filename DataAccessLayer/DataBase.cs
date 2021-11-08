@@ -1,18 +1,17 @@
 ﻿using System;
 using BusinessLayer;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.Xml;
 using System.IO;
 
 namespace DataAccessLayer
 {
     public class DataBase
     {
-        [XmlArray("Db")]
         private HashSet<Category> m_categories;
         private static DataBase m_instance;
 
-        private DataBase() { }
+        private DataBase() { m_categories = new(); }
 
         public static DataBase Instance
         {
@@ -38,15 +37,43 @@ namespace DataAccessLayer
         {
             get
             {
-                return m_categories;
+                return m_instance.m_categories;
             }
         }
 
         public void Deserialize(string path)
         {
-            XmlSerializer serializer = new(typeof(HashSet<Category>));
-            FileStream file = new(path, FileMode.Open, FileAccess.Read);
-            Instance.m_categories = (HashSet<Category>)serializer.Deserialize(file);
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+            m_instance.m_categories = new();
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+            XmlElement root = doc.DocumentElement;
+            Category categoryBuff;
+            Product productBuff;
+            XmlNode attr;
+            foreach (XmlNode category in root)
+            {
+                attr = category.Attributes.GetNamedItem("name");
+                categoryBuff = new();
+                categoryBuff.Name = attr.Value;
+                attr = category.Attributes.GetNamedItem("description");
+                categoryBuff.Description = attr.Value;
+                foreach (XmlNode product in category.ChildNodes)
+                {
+                    productBuff = new();
+                    productBuff.Name = product.ChildNodes[0].InnerText;
+                    productBuff.Gramms = int.Parse(product.ChildNodes[1].InnerText);
+                    productBuff.Proteins = float.Parse(product.ChildNodes[2].InnerText);
+                    productBuff.Fats = float.Parse(product.ChildNodes[3].InnerText);
+                    productBuff.Carbs = float.Parse(product.ChildNodes[4].InnerText);
+                    productBuff.Calories = float.Parse(product.ChildNodes[5].InnerText);
+                    categoryBuff.Products.Add(productBuff);
+                }
+                m_instance.Categories.Add(categoryBuff);
+            }
         }
     }
 }

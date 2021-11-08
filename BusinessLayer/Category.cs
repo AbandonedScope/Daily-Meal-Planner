@@ -9,11 +9,10 @@ namespace BusinessLayer
 {
     public class Category : Regularable
     {
-        [XmlAttribute("name")]
         private string m_name;
-        [XmlAttribute("description")]
         private string m_description;
         private HashSet<Product> m_products;
+
         public string Name
         {
             set
@@ -27,15 +26,16 @@ namespace BusinessLayer
             }
             get
             {
-                if (string.IsNullOrEmpty(m_name))
-                {
-                    throw new ArgumentNullException(nameof(m_name));
-                }
+                //if (string.IsNullOrEmpty(m_name))
+                //{
+                //    throw new ArgumentNullException(nameof(m_name));
+                //}
 
                 return m_name;
             }
         }
 
+        [XmlAttribute("description")]
         public string Description
         {
             set
@@ -48,6 +48,8 @@ namespace BusinessLayer
             }
         }
 
+        public Category() { m_products = new(); }
+        [XmlArray("Category")]
         public HashSet<Product> Products
         {
             set

@@ -13,11 +13,6 @@ namespace DataAccessLayer
 
         public DataAccessObject(string path)
         {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
             m_dataBase = DataBase.Instance;
             m_dataBase.Deserialize(path);
         }

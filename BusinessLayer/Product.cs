@@ -58,7 +58,7 @@ namespace BusinessLayer
         {
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
@@ -76,7 +76,7 @@ namespace BusinessLayer
         {
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
@@ -94,7 +94,7 @@ namespace BusinessLayer
         {
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
@@ -112,7 +112,7 @@ namespace BusinessLayer
         {
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
@@ -126,6 +126,7 @@ namespace BusinessLayer
             }
         }
 
+        public Product() { }
         public override int GetHashCode()
         {
             return m_name.GetHashCode();
@@ -146,6 +147,5 @@ namespace BusinessLayer
 
             return false;
         }
-        public Product() { }
     }
 }
