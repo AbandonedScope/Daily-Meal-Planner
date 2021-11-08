@@ -8,9 +8,8 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    class ProductDAO : DAO
+    public class ProductDAO : DAO
     {
-        private DataBase? m_dataBase;
         public ProductDAO(string path) : base(path) { }
 
         public Product? GetProduct(string name)

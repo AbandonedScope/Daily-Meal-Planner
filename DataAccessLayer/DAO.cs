@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#nullable enable
 
 namespace DataAccessLayer
 {
     public abstract class DAO
     {
-        private DataBase m_dataBase;
+        protected DataBase? m_dataBase;
 
         public DAO(string path)
         {

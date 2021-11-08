@@ -9,10 +9,8 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    class CategoryDAO : DAO
+    public class CategoryDAO : DAO
     {
-        private DataBase? m_dataBase;
-
         public CategoryDAO(string path) : base(path) { }
 
 
