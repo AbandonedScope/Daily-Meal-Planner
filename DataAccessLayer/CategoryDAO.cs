@@ -9,7 +9,7 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    public class CategoryDAO : DAO
+    public class CategoryDAO : DataAccessObject
     {
         public CategoryDAO(string path) : base(path) { }
 

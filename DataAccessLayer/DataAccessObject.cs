@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public abstract class DAO
+    public abstract class DataAccessObject
     {
         protected DataBase? m_dataBase;
 
-        public DAO(string path)
+        public DataAccessObject(string path)
         {
             if (string.IsNullOrEmpty(path))
             {

@@ -8,7 +8,7 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    public class ProductDAO : DAO
+    public class ProductDAO : DataAccessObject
     {
         public ProductDAO(string path) : base(path) { }
 
