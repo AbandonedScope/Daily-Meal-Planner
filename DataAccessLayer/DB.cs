@@ -8,16 +8,13 @@ namespace DataAccessLayer
 {
     public class Db
     {
-        [XmlArray("Categories")]
+        [XmlArray("Db")]
         private HashSet<Category> m_categories;
         private static Db m_instance;
 
-        private Db()
-        { 
+        private Db() { }
 
-        }
-
-        public Db Instance
+        public static Db Instance
         {
             private set
             {
@@ -47,9 +44,9 @@ namespace DataAccessLayer
 
         public void Deserialize(string path)
         {
-            XmlSerializer serializer = new(typeof(Db));
+            XmlSerializer serializer = new(typeof(HashSet<Category>));
             FileStream file = new(path, FileMode.Open, FileAccess.Read);
-            Instance = (Db)serializer.Deserialize(file);
+            Instance.m_categories = (HashSet<Category>)serializer.Deserialize(file);
         }
     }
 }
