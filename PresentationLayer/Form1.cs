@@ -21,7 +21,7 @@ namespace PresentationLayer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Service.SetPath(@"C:\Users\AbandonedScope\Desktop\FoodProducts.xml");
+            Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
             int i = 0;
             this.treeView1.BeginUpdate();
             this.treeView1.Nodes.Clear();
