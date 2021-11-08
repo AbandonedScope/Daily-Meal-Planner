@@ -23,16 +23,20 @@ namespace PresentationLayer
         {
             Service.SetPath(@"C:\Users\AbandonedScope\Desktop\FoodProducts.xml");
             int i = 0;
+            this.treeView1.BeginUpdate();
+            this.treeView1.Nodes.Clear();
             foreach(Category category in Service.GetCategories())
             {
-                i++;
-                this.treeView1.Nodes.Add(category.Name);
+                
+                this.treeView1.Nodes.Add(new TreeNode(category.Name));
                
                 foreach (Product product in category.Products)
                 {
-                    treeView1.Nodes[i].Nodes.Add(product.Name);
+                    treeView1.Nodes[i].Nodes.Add(new TreeNode(product.Name));
                 }
+                i++;
             }
+            this.treeView1.EndUpdate();
         }
     }
 }
