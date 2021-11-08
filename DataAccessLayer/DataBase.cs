@@ -6,15 +6,15 @@ using System.IO;
 
 namespace DataAccessLayer
 {
-    public class Db
+    public class DataBase
     {
         [XmlArray("Db")]
         private HashSet<Category> m_categories;
-        private static Db m_instance;
+        private static DataBase m_instance;
 
-        private Db() { }
+        private DataBase() { }
 
-        public static Db Instance
+        public static DataBase Instance
         {
             private set
             {

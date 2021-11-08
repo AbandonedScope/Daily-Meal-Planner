@@ -9,30 +9,26 @@ using BusinessLayer;
 
 namespace DataAccessLayer
 {
-    class CategoryDAO
+    class CategoryDAO : DAO
     {
-        private Db m_dataBase;
+        private DataBase? m_dataBase;
 
-        public CategoryDAO(string path)
-        {
-            if (string.IsNullOrEmpty(path))
-            {
-                throw new ArgumentNullException(nameof(path));
-            }
-
-            m_dataBase = Db.Instance;
-            m_dataBase.Deserialize(path);
-        }
+        public CategoryDAO(string path) : base(path) { }
 
 
-        public Category? GetCategory(string categoryName)
+        public Category? GetCategory(string categoryName) 
         {
             if (string.IsNullOrEmpty(categoryName))
             {
                 throw new ArgumentNullException(nameof(categoryName));
             }
 
-            foreach(Category category in m_dataBase.Categories)
+            if (m_dataBase == null)
+            {
+                throw new ArgumentNullException(nameof(m_dataBase));
+            }
+
+            foreach (Category category in m_dataBase.Categories)
             {
                 if(category.Name == categoryName)
                 {
@@ -44,6 +40,11 @@ namespace DataAccessLayer
         }
         public HashSet<Category> GetCategories()
         {
+            if(m_dataBase == null)
+            {
+                throw new ArgumentNullException(nameof(m_dataBase));
+            }
+
             return m_dataBase.Categories;
         }
     }
