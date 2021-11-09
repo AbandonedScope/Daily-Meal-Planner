@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class Meal
+    public class Meal
     {
         private string m_name;
-        private HashSet<Product> m_meal;
+        private List<Product> m_meal;
 
         public string Name
         {
@@ -28,9 +28,22 @@ namespace BusinessLayer
             }
         }
 
+        public List<Product> Items
+        {
+            get
+            {
+                return m_meal;
+            }
+        }
+
         public Meal()
         {
-            m_meal = new HashSet<Product>();
+            m_meal = new List<Product>();
+        }
+
+        public Meal(string name) : this()
+        {
+            Name = name;
         }
 
         public void AddItem(Product product)
@@ -42,5 +55,6 @@ namespace BusinessLayer
         {
             m_meal.Remove(product);
         }
+
     }
 }

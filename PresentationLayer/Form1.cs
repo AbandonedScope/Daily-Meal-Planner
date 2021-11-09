@@ -23,6 +23,33 @@ namespace PresentationLayer
         {
             Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
             int i = 0, j;
+            this.mealsTree.BeginUpdate();
+            this.mealsTree.Nodes.Clear();
+            Meal meal = new Meal("Meal1");
+            meal.AddItem(Service.GetProduct("Конфеты шоколадные с шоколадно-кремовой начинкой"));
+            this.mealsTree.Nodes.Add(meal.Name);
+            this.mealsTree.Nodes[0].Tag = meal;
+            j = 0;
+            foreach(Product product in meal.Items)
+            {
+                this.mealsTree.Nodes[0].Nodes.Add(product.Name);
+                this.mealsTree.Nodes[0].Nodes[j].Tag = product;
+                j++;
+            }
+            this.mealsTree.Nodes.Add(meal.Name);
+            this.mealsTree.Nodes[1].Tag = meal;
+            j = 0;
+            foreach (Product product in meal.Items)
+            {
+                this.mealsTree.Nodes[1].Nodes.Add(product.Name);
+                this.mealsTree.Nodes[1].Nodes[j].Tag = product;
+                j++;
+            }
+            this.mealsTree.EndUpdate();
+
+            //Categories with products loading
+            //Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
+           
             this.categories_ProductsTree.BeginUpdate();
             this.categories_ProductsTree.Nodes.Clear();
             foreach(Category category in Service.GetCategories())

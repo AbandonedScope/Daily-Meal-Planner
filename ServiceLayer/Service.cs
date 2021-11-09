@@ -6,7 +6,7 @@ using DataAccessLayer;
 
 namespace ServiceLayer
 {
-    public class Service
+    public static class Service
     {
         private static CategoryDAO? m_categoryDAO;
         private static ProductDAO? m_productDAO;
