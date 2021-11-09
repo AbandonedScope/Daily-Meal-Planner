@@ -29,20 +29,24 @@ namespace PresentationLayer
             meal.AddItem(Service.GetProduct("Конфеты шоколадные с шоколадно-кремовой начинкой"));
             this.mealsTree.Nodes.Add(meal.Name);
             this.mealsTree.Nodes[0].Tag = meal;
+            this.mealsTree.Nodes[0].ContextMenuStrip = contextMenuStrip1;
             j = 0;
             foreach(Product product in meal.Items)
             {
                 this.mealsTree.Nodes[0].Nodes.Add(product.Name);
                 this.mealsTree.Nodes[0].Nodes[j].Tag = product;
+                this.mealsTree.Nodes[0].Nodes[j].ContextMenuStrip = contextMenuStrip1;
                 j++;
             }
             this.mealsTree.Nodes.Add(meal.Name);
             this.mealsTree.Nodes[1].Tag = meal;
+            this.mealsTree.Nodes[1].ContextMenuStrip = contextMenuStrip1;
             j = 0;
             foreach (Product product in meal.Items)
             {
                 this.mealsTree.Nodes[1].Nodes.Add(product.Name);
                 this.mealsTree.Nodes[1].Nodes[j].Tag = product;
+                this.mealsTree.Nodes[1].Nodes[j].ContextMenuStrip = contextMenuStrip1;
                 j++;
             }
             this.mealsTree.EndUpdate();
@@ -68,6 +72,17 @@ namespace PresentationLayer
                 i++;
             }
             this.categories_ProductsTree.EndUpdate();
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(this.mealsTree.SelectedNode != null)
+            this.mealsTree.SelectedNode.Remove();
+        }
+
+        private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
+        {
+            this.mealsTree.SelectedNode = e.Node;
         }
     }
 }
