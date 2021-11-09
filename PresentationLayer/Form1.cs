@@ -22,21 +22,25 @@ namespace PresentationLayer
         private void Form1_Load(object sender, EventArgs e)
         {
             Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
-            int i = 0;
-            this.treeView1.BeginUpdate();
-            this.treeView1.Nodes.Clear();
+            int i = 0, j;
+            this.categories_ProductsTree.BeginUpdate();
+            this.categories_ProductsTree.Nodes.Clear();
             foreach(Category category in Service.GetCategories())
             {
                 
-                this.treeView1.Nodes.Add(new TreeNode(category.Name));
-               
+                this.categories_ProductsTree.Nodes.Add(new TreeNode(category.Name));
+                this.categories_ProductsTree.Nodes[i].Tag = category;
+                j = 0;
                 foreach (Product product in category.Products)
                 {
-                    treeView1.Nodes[i].Nodes.Add(new TreeNode(product.Name));
+                    
+                    categories_ProductsTree.Nodes[i].Nodes.Add(new TreeNode(product.Name));
+                    categories_ProductsTree.Nodes[i].Nodes[j].Tag = product;
+                    j++;
                 }
                 i++;
             }
-            this.treeView1.EndUpdate();
+            this.categories_ProductsTree.EndUpdate();
         }
     }
 }

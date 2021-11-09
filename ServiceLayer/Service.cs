@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using BusinessLayer;
 using DataAccessLayer;
+#nullable enable
 
 namespace ServiceLayer
 {
     public class Service
     {
-        private static CategoryDAO m_categoryDAO;
-        private static ProductDAO m_productDAO;
+        private static CategoryDAO? m_categoryDAO;
+        private static ProductDAO? m_productDAO;
 
         public static void SetPath(string path)
         {
@@ -16,7 +17,7 @@ namespace ServiceLayer
             m_productDAO = new ProductDAO(path);
         }
 
-        public static Category GetCategory(string name)
+        public static Category? GetCategory(string name)
         {
             if (m_categoryDAO == null)
             {
@@ -35,7 +36,7 @@ namespace ServiceLayer
             return m_categoryDAO.GetCategories();
         }
 
-        public static Product GetProduct(string name)
+        public static Product? GetProduct(string name)
         {
             if (m_productDAO == null)
             {
@@ -45,9 +46,15 @@ namespace ServiceLayer
             return m_productDAO.GetProduct(name);
         }
 
-        public static HashSet<Product> GetProductsByCategory(string categoryName)
+        public static HashSet<Product>? GetProductsByCategory(string categoryName)
         {
-            return GetCategory(categoryName).Products;
+            Category? category = GetCategory(categoryName);
+            if (category == null)
+            {
+                return null;
+            }
+
+            return category.Products;
         }
     }
 }
