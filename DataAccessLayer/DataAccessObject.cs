@@ -15,6 +15,7 @@ namespace DataAccessLayer
         {
             m_dataBase = DataBase.Instance;
             m_dataBase.Deserialize(path);
+           
         }
     }
 }

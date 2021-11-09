@@ -37,7 +37,7 @@ namespace DataAccessLayer
         {
             get
             {
-                return m_instance.m_categories;
+                return m_categories;
             }
         }
 
@@ -73,6 +73,7 @@ namespace DataAccessLayer
                     categoryBuff.Products.Add(productBuff);
                 }
                 m_instance.Categories.Add(categoryBuff);
+                m_categories = m_instance.Categories;
             }
         }
     }
