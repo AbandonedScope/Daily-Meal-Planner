@@ -25,28 +25,28 @@ namespace PresentationLayer
             int i = 0, j;
             this.mealsTree.BeginUpdate();
             this.mealsTree.Nodes.Clear();
-            Meal meal = new Meal("Meal1");
+            Meal meal = new Meal("Meal");
             meal.AddItem(Service.GetProduct("Конфеты шоколадные с шоколадно-кремовой начинкой"));
             this.mealsTree.Nodes.Add(meal.Name);
             this.mealsTree.Nodes[0].Tag = meal;
-            this.mealsTree.Nodes[0].ContextMenuStrip = contextMenuStrip1;
+            this.mealsTree.Nodes[0].ContextMenuStrip = this.mealContextMenuStrip;
             j = 0;
             foreach(Product product in meal.Items)
             {
                 this.mealsTree.Nodes[0].Nodes.Add(product.Name);
                 this.mealsTree.Nodes[0].Nodes[j].Tag = product;
-                this.mealsTree.Nodes[0].Nodes[j].ContextMenuStrip = contextMenuStrip1;
+                this.mealsTree.Nodes[0].Nodes[j].ContextMenuStrip = this.poductContextMenuStrip;
                 j++;
             }
-            this.mealsTree.Nodes.Add(meal.Name);
+            this.mealsTree.Nodes.Add(meal.Name + "654895461");
             this.mealsTree.Nodes[1].Tag = meal;
-            this.mealsTree.Nodes[1].ContextMenuStrip = contextMenuStrip1;
+            this.mealsTree.Nodes[1].ContextMenuStrip = this.mealContextMenuStrip;
             j = 0;
             foreach (Product product in meal.Items)
             {
                 this.mealsTree.Nodes[1].Nodes.Add(product.Name);
                 this.mealsTree.Nodes[1].Nodes[j].Tag = product;
-                this.mealsTree.Nodes[1].Nodes[j].ContextMenuStrip = contextMenuStrip1;
+                this.mealsTree.Nodes[1].Nodes[j].ContextMenuStrip = poductContextMenuStrip;
                 j++;
             }
             this.mealsTree.EndUpdate();
@@ -76,8 +76,10 @@ namespace PresentationLayer
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(this.mealsTree.SelectedNode != null)
-            this.mealsTree.SelectedNode.Remove();
+            if (this.mealsTree.SelectedNode != null)
+            {
+                this.mealsTree.SelectedNode.Remove();
+            }
         }
 
         private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
