@@ -74,7 +74,7 @@ namespace PresentationLayer
             this.categories_ProductsTree.EndUpdate();
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.mealsTree.SelectedNode != null)
             {
@@ -85,6 +85,22 @@ namespace PresentationLayer
         private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
         {
             this.mealsTree.SelectedNode = e.Node;
+        }
+
+        private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null)
+            {
+                this.mealsTree.SelectedNode.Remove();
+            }
+        }
+
+        private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null)
+            {
+                this.mealsTree.SelectedNode.BeginEdit();
+            }
         }
     }
 }
