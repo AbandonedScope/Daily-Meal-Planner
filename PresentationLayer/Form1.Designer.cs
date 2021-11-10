@@ -38,8 +38,11 @@ namespace PresentationLayer
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mealTreeViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
+            this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // categories_ProductsTree
@@ -56,7 +59,6 @@ namespace PresentationLayer
             this.mealsTree.Name = "mealsTree";
             this.mealsTree.Size = new System.Drawing.Size(283, 405);
             this.mealsTree.TabIndex = 1;
-            this.mealsTree.NodeMouseClick += MealsTree_NodeMouseClick;
             // 
             // poductContextMenuStrip
             // 
@@ -97,17 +99,33 @@ namespace PresentationLayer
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem1_Click);
             // 
-            // contextMenuStrip1
+            // mealTreeViewContextMenuStrip
             // 
             this.mealTreeViewContextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.mealTreeViewContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearToolStripMenuItem,
+            this.addToolStripMenuItem});
             this.mealTreeViewContextMenuStrip.Name = "contextMenuStrip1";
-            this.mealTreeViewContextMenuStrip.Size = new System.Drawing.Size(61, 4);
+            this.mealTreeViewContextMenuStrip.Size = new System.Drawing.Size(211, 80);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.clearToolStripMenuItem.Text = "Clear";
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.addToolStripMenuItem.Text = "Add";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 534);
+            this.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
             this.Name = "Form1";
@@ -115,6 +133,7 @@ namespace PresentationLayer
             this.Load += new System.EventHandler(this.Form1_Load);
             this.poductContextMenuStrip.ResumeLayout(false);
             this.mealContextMenuStrip.ResumeLayout(false);
+            this.mealTreeViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -129,6 +148,8 @@ namespace PresentationLayer
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip mealTreeViewContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
     }
 }
 
