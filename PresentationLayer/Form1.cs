@@ -19,64 +19,6 @@ namespace PresentationLayer
         {
             InitializeComponent();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            AddMealToTree(new Meal("Breakfast"));
-            AddMealToTree(new Meal("Lunch"));
-            AddMealToTree(new Meal("Dinner"));
-            LoadCategoryTree();
-            
-        }
-
-        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.mealsTree.SelectedNode != null)
-            {
-                this.mealsTree.SelectedNode.Remove();
-            }
-        }
-
-        private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
-        {
-            if (sender is TreeView tree)
-            {
-                tree.SelectedNode = e.Node;
-            }
-        }
-
-        private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (this.mealsTree.SelectedNode != null)
-            {
-                this.mealsTree.SelectedNode.Remove();
-            }
-        }
-
-        private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Meal)
-            {
-                this.mealsTree.SelectedNode.BeginEdit();
-                if (this.mealsTree.SelectedNode.Tag is Meal meal)
-                {
-                    meal.Name = this.mealsTree.SelectedNode.Text;
-                }
-            }
-        }
-
-        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.mealsTree.Nodes.Clear();
-        }
-
-        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            AddMealToTree(new Meal($"New meal"));
-           
-        }
-
         private void AddMealToTree(Meal meal)
         {
             int counter = 0;
@@ -122,6 +64,17 @@ namespace PresentationLayer
             }
 
         }
+
+        #region Event Handlers
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AddMealToTree(new Meal("Breakfast"));
+            AddMealToTree(new Meal("Lunch"));
+            AddMealToTree(new Meal("Dinner"));
+            LoadCategoryTree();
+
+        }
+
         private void LoadCategoryTree()
         {
             Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
@@ -172,6 +125,54 @@ namespace PresentationLayer
                     } 
                 }
             }
+        } 
+       
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            AddMealToTree(new Meal($"New meal"));
+           
+        } 
+        
+        private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Meal)
+            {
+                this.mealsTree.SelectedNode.BeginEdit();
+                if (this.mealsTree.SelectedNode.Tag is Meal meal)
+                {
+                    meal.Name = this.mealsTree.SelectedNode.Text;
+                }
+            }
+        }
+
+        private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null)
+            {
+                this.mealsTree.SelectedNode.Remove();
+            }
+        }
+
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null)
+            {
+                this.mealsTree.SelectedNode.Remove();
+            }
+        }
+
+        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.mealsTree.Nodes.Clear();
+        }
+
+        private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
+        {
+            if (sender is TreeView tree)
+            {
+                tree.SelectedNode = e.Node;
+            }
         }
 
         private void MealsTree_DragEnter(object sender, DragEventArgs e)
@@ -208,5 +209,6 @@ namespace PresentationLayer
                 }
             }
         }
+        #endregion
     }
 }
