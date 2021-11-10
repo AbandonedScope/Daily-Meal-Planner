@@ -127,6 +127,8 @@ namespace BusinessLayer
         }
 
         public Product() { }
+
+        public Product(string name) { Name = name; }
         public override int GetHashCode()
         {
             return m_name.GetHashCode();

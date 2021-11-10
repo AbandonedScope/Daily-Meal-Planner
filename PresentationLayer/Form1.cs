@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ServiceLayer;
 using BusinessLayer;
+#nullable enable
 
 namespace PresentationLayer
 {
@@ -38,7 +39,10 @@ namespace PresentationLayer
 
         private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
         {
-            (sender as TreeView).SelectedNode = e.Node;
+            if (sender is TreeView tree)
+            {
+                tree.SelectedNode = e.Node;
+            }
         }
 
         private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -51,9 +55,13 @@ namespace PresentationLayer
 
         private void RenameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.mealsTree.SelectedNode != null)
+            if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Meal)
             {
                 this.mealsTree.SelectedNode.BeginEdit();
+                if (this.mealsTree.SelectedNode.Tag is Meal meal)
+                {
+                    meal.Name = this.mealsTree.SelectedNode.Text;
+                }
             }
         }
 
@@ -65,15 +73,30 @@ namespace PresentationLayer
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-            AddMealToTree(new Meal($"New meal({this.mealsTree.Nodes.Count + 1})"));
+            AddMealToTree(new Meal($"New meal"));
            
         }
 
         private void AddMealToTree(Meal meal)
         {
+            int counter = 0;
+            foreach(TreeNode node in this.mealsTree.Nodes)
+            {
+                if (node.Tag is Meal inTreeMeal && inTreeMeal.Name == meal.Name)
+                {
+                    counter++;
+                }
+            }
             this.mealsTree.BeginUpdate();
             int count = mealsTree.Nodes.Count;
-            this.mealsTree.Nodes.Add(meal.Name);
+            if (counter > 0)
+            {
+                this.mealsTree.Nodes.Add(meal.Name + $"({counter})");
+            }
+            else
+            {
+                this.mealsTree.Nodes.Add(meal.Name);
+            }
             this.mealsTree.Nodes[count].Tag = meal;
             this.mealsTree.Nodes[count].ContextMenuStrip = this.mealContextMenuStrip;
             int j = 0;
@@ -87,6 +110,18 @@ namespace PresentationLayer
             this.mealsTree.EndUpdate();
         }
 
+        private void AddProductToMealNode(TreeNode mealNode, Product product)
+        {
+            if (mealNode.Tag is Meal meal)
+            {
+                meal.Items.Add(product);
+                int count = mealNode.Nodes.Count;
+                mealNode.Nodes.Add(product.Name);
+                mealNode.Nodes[count].Tag = product;
+                mealNode.Nodes[count].ContextMenuStrip = this.poductContextMenuStrip;
+            }
+
+        }
         private void LoadCategoryTree()
         {
             Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
@@ -109,6 +144,69 @@ namespace PresentationLayer
                 i++;
             }
             this.categories_ProductsTree.EndUpdate();
+        }
+
+        private void Tree_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            if (e.Item is TreeNode node)
+            {
+                if (node != null && node.Tag is Product)
+                {
+                    if (sender is TreeView senderTree)
+                    {
+                        if (senderTree == this.mealsTree)
+                        {
+                            if (e.Button == MouseButtons.Left)
+                            {
+                                DoDragDrop(e.Item, DragDropEffects.Move);
+                            }
+                            else if (e.Button == MouseButtons.Right)
+                            {
+                                DoDragDrop(e.Item, DragDropEffects.Copy);
+                            }
+                        }
+                        else
+                        {
+                            DoDragDrop(e.Item, DragDropEffects.Copy);
+                        }
+                    } 
+                }
+            }
+        }
+
+        private void MealsTree_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = e.AllowedEffect;
+        }
+
+        private void MealsTree_DragOver(object sender, DragEventArgs e)
+        {
+            if (sender is TreeView targetTree)
+            {
+                Point targetPoint = targetTree.PointToClient(new Point(e.X, e.Y));
+
+                this.mealsTree.SelectedNode = this.mealsTree.GetNodeAt(targetPoint);
+            }
+        }
+
+        private void MealsTree_DragDrop(object sender, DragEventArgs e)
+        {
+            if (sender is TreeView targetTree)
+            {
+                Point targetPoint = targetTree.PointToClient(new Point(e.X, e.Y));
+                TreeNode? targetNode = targetTree.GetNodeAt(targetPoint);
+                TreeNode? draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
+                if (targetNode != null && targetNode.Tag is Meal && draggedNode.Tag is Product product)
+                {
+                    AddProductToMealNode(targetNode, product);
+                    targetNode.Expand();
+
+                    if(e.Effect == DragDropEffects.Move)
+                    {
+                        draggedNode.Remove();
+                    }
+                }
+            }
         }
     }
 }
