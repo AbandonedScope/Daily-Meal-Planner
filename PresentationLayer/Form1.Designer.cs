@@ -43,6 +43,7 @@ namespace PresentationLayer
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
+            this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // categories_ProductsTree
@@ -132,6 +133,7 @@ namespace PresentationLayer
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 534);
+            this.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
             this.Name = "Form1";
@@ -141,6 +143,7 @@ namespace PresentationLayer
             this.mealTreeViewContextMenuStrip.ResumeLayout(false);
             this.poductContextMenuStrip.ResumeLayout(false);
             this.mealContextMenuStrip.ResumeLayout(false);
+            this.mealTreeViewContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
