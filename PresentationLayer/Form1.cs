@@ -21,57 +21,11 @@ namespace PresentationLayer
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
-            int i = 0, j;
-            this.mealsTree.BeginUpdate();
-            this.mealsTree.Nodes.Clear();
-            Meal meal = new Meal("Meal");
-            meal.AddItem(Service.GetProduct("Конфеты шоколадные с шоколадно-кремовой начинкой"));
-            this.mealsTree.Nodes.Add(meal.Name);
-            this.mealsTree.Nodes[0].Tag = meal;
-            this.mealsTree.Nodes[0].ContextMenuStrip = this.mealContextMenuStrip;
-            j = 0;
-            foreach(Product product in meal.Items)
-            {
-                this.mealsTree.Nodes[0].Nodes.Add(product.Name);
-                this.mealsTree.Nodes[0].Nodes[j].Tag = product;
-                this.mealsTree.Nodes[0].Nodes[j].ContextMenuStrip = this.poductContextMenuStrip;
-                j++;
-            }
-            this.mealsTree.Nodes.Add(meal.Name + "654895461");
-            this.mealsTree.Nodes[1].Tag = meal;
-            this.mealsTree.Nodes[1].ContextMenuStrip = this.mealContextMenuStrip;
-            j = 0;
-            foreach (Product product in meal.Items)
-            {
-                this.mealsTree.Nodes[1].Nodes.Add(product.Name);
-                this.mealsTree.Nodes[1].Nodes[j].Tag = product;
-                this.mealsTree.Nodes[1].Nodes[j].ContextMenuStrip = poductContextMenuStrip;
-                j++;
-            }
-            this.mealsTree.EndUpdate();
-
-            //Categories with products loading
-            //Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
-           
-            this.categories_ProductsTree.BeginUpdate();
-            this.categories_ProductsTree.Nodes.Clear();
-            foreach(Category category in Service.GetCategories())
-            {
-                
-                this.categories_ProductsTree.Nodes.Add(new TreeNode(category.Name));
-                this.categories_ProductsTree.Nodes[i].Tag = category;
-                j = 0;
-                foreach (Product product in category.Products)
-                {
-                    
-                    categories_ProductsTree.Nodes[i].Nodes.Add(new TreeNode(product.Name));
-                    categories_ProductsTree.Nodes[i].Nodes[j].Tag = product;
-                    j++;
-                }
-                i++;
-            }
-            this.categories_ProductsTree.EndUpdate();
+            AddMealToTree(new Meal("Breakfast"));
+            AddMealToTree(new Meal("Lunch"));
+            AddMealToTree(new Meal("Dinner"));
+            LoadCategoryTree();
+            
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,7 +38,7 @@ namespace PresentationLayer
 
         private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
         {
-            this.mealsTree.SelectedNode = e.Node;
+            (sender as TreeView).SelectedNode = e.Node;
         }
 
         private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -101,6 +55,60 @@ namespace PresentationLayer
             {
                 this.mealsTree.SelectedNode.BeginEdit();
             }
+        }
+
+        private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.mealsTree.Nodes.Clear();
+        }
+
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            AddMealToTree(new Meal($"New meal({this.mealsTree.Nodes.Count + 1})"));
+           
+        }
+
+        private void AddMealToTree(Meal meal)
+        {
+            this.mealsTree.BeginUpdate();
+            int count = mealsTree.Nodes.Count;
+            this.mealsTree.Nodes.Add(meal.Name);
+            this.mealsTree.Nodes[count].Tag = meal;
+            this.mealsTree.Nodes[count].ContextMenuStrip = this.mealContextMenuStrip;
+            int j = 0;
+            foreach (Product product in meal.Items)
+            {
+                this.mealsTree.Nodes[count].Nodes.Add(product.Name);
+                this.mealsTree.Nodes[count].Nodes[j].Tag = product;
+                this.mealsTree.Nodes[count].Nodes[j].ContextMenuStrip = this.poductContextMenuStrip;
+                j++;
+            }
+            this.mealsTree.EndUpdate();
+        }
+
+        private void LoadCategoryTree()
+        {
+            Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
+            this.categories_ProductsTree.BeginUpdate();
+            this.categories_ProductsTree.Nodes.Clear();
+            int i = 0, j;
+            foreach (Category category in Service.GetCategories())
+            {
+
+                this.categories_ProductsTree.Nodes.Add(new TreeNode(category.Name));
+                this.categories_ProductsTree.Nodes[i].Tag = category;
+                j = 0;
+                foreach (Product product in category.Products)
+                {
+
+                    categories_ProductsTree.Nodes[i].Nodes.Add(new TreeNode(product.Name));
+                    categories_ProductsTree.Nodes[i].Nodes[j].Tag = product;
+                    j++;
+                }
+                i++;
+            }
+            this.categories_ProductsTree.EndUpdate();
         }
     }
 }
