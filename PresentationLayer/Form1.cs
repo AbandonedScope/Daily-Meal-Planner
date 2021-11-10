@@ -65,6 +65,18 @@ namespace PresentationLayer
 
         }
 
+        private void DeleteNode(TreeNode nodeToDelete)
+        {
+            if(nodeToDelete.Parent == null)
+            {
+                nodeToDelete.Remove();
+            }
+            else
+            {
+                nodeToDelete.Remove();
+            }
+        }
+
         #region Event Handlers
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -150,7 +162,7 @@ namespace PresentationLayer
         {
             if (this.mealsTree.SelectedNode != null)
             {
-                this.mealsTree.SelectedNode.Remove();
+                DeleteNode(this.mealsTree.SelectedNode);
             }
         }
 
@@ -158,7 +170,7 @@ namespace PresentationLayer
         {
             if (this.mealsTree.SelectedNode != null)
             {
-                this.mealsTree.SelectedNode.Remove();
+                DeleteNode(this.mealsTree.SelectedNode);
             }
         }
 
@@ -204,7 +216,7 @@ namespace PresentationLayer
 
                     if(e.Effect == DragDropEffects.Move)
                     {
-                        draggedNode.Remove();
+                        DeleteNode(draggedNode);
                     }
                 }
             }
