@@ -274,6 +274,65 @@ namespace PresentationLayer
                 }
             }
         }
+        
+        private void SerachTextChange(object sender, EventArgs e)
+        {
+            LoadCategoryTree();
+            if(sender is TextBox serchBox && !string.IsNullOrEmpty(serchBox.Text))
+            {
+                DeleteNodesFromCollection(this.categories_ProductsTree.Nodes, serchBox.Text);
+                if (categories_ProductsTree.Nodes != null)
+                {
+                    foreach (TreeNode node in categories_ProductsTree.Nodes)
+                    {
+                        node.Expand();
+                    }
+                }
+            }
+        }
+
+        private void DeleteNodesFromCollection(TreeNodeCollection collection, string text)
+        {
+            //bool flag = false;
+            for (int i = 0; i < collection.Count; i++)
+            {
+               
+                if (!collection[i].Text.ToLower().Contains(text.ToLower()))
+                {
+                    bool flag = false;
+                    for (int j = 0; j < collection[i].Nodes.Count; j++)
+                    {
+                        if (!collection[i].Nodes[j].Text.ToLower().Contains(text.ToLower()))
+                        {
+                            collection[i].Nodes[j].Remove();
+                            j--;
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                    }
+                    if(!flag)
+                    {
+                        collection[i].Remove();
+                        i--;
+                    }
+                }
+                //if (collection[i].Nodes != null)
+                //{
+                //    flag = DeleteNodesFromCollection(collection[i].Nodes, text);
+                //}
+                //if (!collection[i].Text.Contains(text) && !flag)
+                //{
+                //    collection[i].Remove();
+                //    i--;
+                //}
+                //else 
+                //{
+                //    flag = true;
+                //}
+            }
+        }
         #endregion
     }
 }

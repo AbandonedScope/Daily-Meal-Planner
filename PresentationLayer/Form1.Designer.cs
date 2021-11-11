@@ -41,6 +41,7 @@ namespace PresentationLayer
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
@@ -48,7 +49,7 @@ namespace PresentationLayer
             // 
             // categories_ProductsTree
             // 
-            this.categories_ProductsTree.Location = new System.Drawing.Point(25, 33);
+            this.categories_ProductsTree.Location = new System.Drawing.Point(22, 63);
             this.categories_ProductsTree.Name = "categories_ProductsTree";
             this.categories_ProductsTree.Size = new System.Drawing.Size(416, 405);
             this.categories_ProductsTree.TabIndex = 0;
@@ -60,7 +61,7 @@ namespace PresentationLayer
             this.mealsTree.AllowDrop = true;
             this.mealsTree.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
             this.mealsTree.LabelEdit = true;
-            this.mealsTree.Location = new System.Drawing.Point(556, 33);
+            this.mealsTree.Location = new System.Drawing.Point(556, 63);
             this.mealsTree.Name = "mealsTree";
             this.mealsTree.Size = new System.Drawing.Size(416, 405);
             this.mealsTree.TabIndex = 1;
@@ -144,11 +145,20 @@ namespace PresentationLayer
             this.progressBar1.TabIndex = 3;
             this.progressBar1.Value = 8955;
             // 
+            // textBox1
+            // 
+            this.searchBox.Location = new System.Drawing.Point(22, 13);
+            this.searchBox.Name = "textBox1";
+            this.searchBox.Size = new System.Drawing.Size(416, 27);
+            this.searchBox.TabIndex = 4;
+            this.searchBox.TextChanged += new System.EventHandler(this.SerachTextChange);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 630);
+            this.Controls.Add(this.searchBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
@@ -160,6 +170,7 @@ namespace PresentationLayer
             this.poductContextMenuStrip.ResumeLayout(false);
             this.mealContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -176,6 +187,7 @@ namespace PresentationLayer
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TextBox searchBox;
     }
 }
 
