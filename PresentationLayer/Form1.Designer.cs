@@ -40,6 +40,7 @@ namespace PresentationLayer
             this.mealContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
@@ -59,11 +60,11 @@ namespace PresentationLayer
             this.mealsTree.AllowDrop = true;
             this.mealsTree.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
             this.mealsTree.LabelEdit = true;
-            this.mealsTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.MealsTree_AfterLabelEdit);
             this.mealsTree.Location = new System.Drawing.Point(556, 33);
             this.mealsTree.Name = "mealsTree";
             this.mealsTree.Size = new System.Drawing.Size(416, 405);
             this.mealsTree.TabIndex = 1;
+            this.mealsTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.MealsTree_AfterLabelEdit);
             this.mealsTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Tree_ItemDrag);
             this.mealsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MealsTree_NodeMouseClick);
             this.mealsTree.DragDrop += new System.Windows.Forms.DragEventHandler(this.MealsTree_DragDrop);
@@ -134,11 +135,21 @@ namespace PresentationLayer
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem1_Click);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(556, 481);
+            this.progressBar1.Maximum = 85694;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(416, 29);
+            this.progressBar1.TabIndex = 3;
+            this.progressBar1.Value = 8955;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1007, 534);
+            this.ClientSize = new System.Drawing.Size(1004, 630);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
             this.Name = "Form1";
@@ -164,6 +175,7 @@ namespace PresentationLayer
         private System.Windows.Forms.ContextMenuStrip mealTreeViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
