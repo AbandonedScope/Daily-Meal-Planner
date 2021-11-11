@@ -22,23 +22,18 @@ namespace PresentationLayer
         private void AddMealToTree(Meal meal)
         {
             int counter = 0;
-            foreach(TreeNode node in this.mealsTree.Nodes)
+            do
             {
-                if (node.Tag is Meal inTreeMeal && inTreeMeal.Name == meal.Name)
+                counter = NameCheck(meal.Name);
+                if (counter > 0)
                 {
-                    counter++;
+                    meal.Name += ".";
                 }
-            }
+
+            } while (counter != 0);
             this.mealsTree.BeginUpdate();
             int count = mealsTree.Nodes.Count;
-            if (counter > 0)
-            {
-                this.mealsTree.Nodes.Add(meal.Name + $"({counter})");
-            }
-            else
-            {
-                this.mealsTree.Nodes.Add(meal.Name);
-            }
+            this.mealsTree.Nodes.Add(meal.Name);
             this.mealsTree.Nodes[count].Tag = meal;
             this.mealsTree.Nodes[count].ContextMenuStrip = this.mealContextMenuStrip;
             int j = 0;
@@ -51,6 +46,20 @@ namespace PresentationLayer
             }
             Service.AddMealToRation(meal);
             this.mealsTree.EndUpdate();
+        }
+
+        private int NameCheck (string name)
+        {
+            int counter = 0;
+            foreach (TreeNode node in this.mealsTree.Nodes)
+            {
+                if (node.Tag is Meal inTreeMeal && inTreeMeal.Name == name)
+                {
+                    counter++;
+                }
+            }
+
+            return counter;
         }
 
         private void AddProductToMealNode(TreeNode mealNode, Product product)
@@ -159,7 +168,6 @@ namespace PresentationLayer
         {
             if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Meal)
             {
-                string prefName = this.mealsTree.SelectedNode.Text;
                 this.mealsTree.SelectedNode.BeginEdit();
             }
         }
@@ -182,7 +190,15 @@ namespace PresentationLayer
 
                 if (flag)
                 {
-                    meal.Name = e.Label;
+                    try
+                    {
+                        meal.Name = e.Label;
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        e.CancelEdit = true;
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
         }

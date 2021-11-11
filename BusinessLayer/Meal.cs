@@ -17,7 +17,7 @@ namespace BusinessLayer
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException(nameof(value));
+                    throw new ArgumentNullException(nameof(Name));
                 }
 
                 m_name = value;
