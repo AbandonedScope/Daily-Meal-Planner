@@ -49,6 +49,7 @@ namespace PresentationLayer
                 this.mealsTree.Nodes[count].Nodes[j].ContextMenuStrip = this.poductContextMenuStrip;
                 j++;
             }
+            Service.AddMealToRation(meal);
             this.mealsTree.EndUpdate();
         }
 
@@ -56,11 +57,11 @@ namespace PresentationLayer
         {
             if (mealNode.Tag is Meal meal)
             {
-                meal.Items.Add(product);
                 int count = mealNode.Nodes.Count;
                 mealNode.Nodes.Add(product.Name);
                 mealNode.Nodes[count].Tag = product;
                 mealNode.Nodes[count].ContextMenuStrip = this.poductContextMenuStrip;
+                Service.AddProductToMeal(product, meal);
             }
 
         }
@@ -69,11 +70,19 @@ namespace PresentationLayer
         {
             if(nodeToDelete.Parent == null)
             {
-                nodeToDelete.Remove();
+                if(nodeToDelete.Tag is Meal meal)
+                {
+                    Service.DeleteMealFromDaileRation(meal);
+                    nodeToDelete.Remove();
+                }
             }
             else
             {
-                nodeToDelete.Remove();
+                if (nodeToDelete.Tag is Product product && nodeToDelete.Parent.Tag is Meal meal)
+                {
+                    Service.DeletePruductFromDailyMeal(product, meal);
+                    nodeToDelete.Remove();
+                }
             }
         }
 
@@ -150,10 +159,30 @@ namespace PresentationLayer
         {
             if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Meal)
             {
+                string prefName = this.mealsTree.SelectedNode.Text;
                 this.mealsTree.SelectedNode.BeginEdit();
-                if (this.mealsTree.SelectedNode.Tag is Meal meal)
+            }
+        }
+
+        private void MealsTree_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
+        {
+            
+            if (e.Node.Tag is Meal meal)
+            {
+                bool flag = true;
+                foreach (TreeNode node in this.mealsTree.Nodes)
                 {
-                    meal.Name = this.mealsTree.SelectedNode.Text;
+                    if (node != e.Node && e.Label == node.Text)
+                    {
+                        e.CancelEdit = true;
+                        flag = false;
+                        break;
+                    }
+                }
+
+                if (flag)
+                {
+                    meal.Name = e.Label;
                 }
             }
         }

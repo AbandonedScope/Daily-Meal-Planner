@@ -10,11 +10,16 @@ namespace ServiceLayer
     {
         private static CategoryDAO? m_categoryDAO;
         private static ProductDAO? m_productDAO;
+        private static DailyRation? m_dailyRation;
 
         public static void SetPath(string path)
         {
             m_categoryDAO = new CategoryDAO(path);
             m_productDAO = new ProductDAO(path);
+            if (m_dailyRation == null)
+            {
+                m_dailyRation = new DailyRation();
+            }
         }
 
         public static Category? GetCategory(string name)
@@ -55,6 +60,36 @@ namespace ServiceLayer
             }
 
             return category.Products;
+        }
+
+        public static void AddMealToRation(Meal meal)
+        {
+            m_dailyRation ??= new DailyRation();
+
+            m_dailyRation.AddMeal(meal);
+        }
+
+        public static void AddProductToMeal(Product product, Meal meal)
+        {
+            m_dailyRation ??= new DailyRation();
+
+            m_dailyRation.AddProductToMeal(product, meal);
+        }
+
+        public static void DeletePruductFromDailyMeal(Product product, Meal meal)
+        {
+            if (m_dailyRation != null)
+            {
+                m_dailyRation.RemoveProductFromMeal(product, meal);
+            }
+        }
+
+        public static void DeleteMealFromDaileRation(Meal meal)
+        {
+            if (m_dailyRation != null)
+            {
+                m_dailyRation.RemoveMeal(meal);
+            }
         }
     }
 }

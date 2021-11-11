@@ -59,6 +59,7 @@ namespace PresentationLayer
             this.mealsTree.AllowDrop = true;
             this.mealsTree.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
             this.mealsTree.LabelEdit = true;
+            this.mealsTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.MealsTree_AfterLabelEdit);
             this.mealsTree.Location = new System.Drawing.Point(556, 33);
             this.mealsTree.Name = "mealsTree";
             this.mealsTree.Size = new System.Drawing.Size(416, 405);

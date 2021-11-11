@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    class DailyRation : IEdible
+    public class DailyRation : IEdible
     {
         private HashSet<Meal> m_meals;
 
@@ -75,6 +75,14 @@ namespace BusinessLayer
         public void AddMeal(Meal mealToAdd)
         {
             m_meals.Add(mealToAdd);
+        }
+
+        public void AddProductToMeal(Product product, Meal meal)
+        {
+            if (m_meals.Contains(meal))
+            {
+                meal.AddItem(product);
+            }
         }
 
         public void RemoveMeal(Meal mealToRemove)

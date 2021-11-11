@@ -66,7 +66,7 @@ namespace DataAccessLayer
                     productBuff = new();
                     productBuff.Name = product.ChildNodes[0].InnerText;
                     productBuff.Gramms = int.Parse(product.ChildNodes[1].InnerText);
-                    productBuff.Proteins = float.Parse(product.ChildNodes[2].InnerText);
+                    productBuff.Protein = float.Parse(product.ChildNodes[2].InnerText);
                     productBuff.Fats = float.Parse(product.ChildNodes[3].InnerText);
                     productBuff.Carbs = float.Parse(product.ChildNodes[4].InnerText);
                     productBuff.Calories = float.Parse(product.ChildNodes[5].InnerText);
