@@ -222,6 +222,7 @@ namespace PresentationLayer
         private void ClearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.mealsTree.Nodes.Clear();
+            Service.RationClear();
         }
 
         private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
