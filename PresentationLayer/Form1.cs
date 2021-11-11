@@ -209,9 +209,16 @@ namespace PresentationLayer
                 Point targetPoint = targetTree.PointToClient(new Point(e.X, e.Y));
                 TreeNode? targetNode = targetTree.GetNodeAt(targetPoint);
                 TreeNode? draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
-                if (targetNode != null && targetNode.Tag is Meal && draggedNode.Tag is Product product)
+                if (targetNode != null && (targetNode.Tag is Meal || targetNode.Parent != null) && draggedNode.Tag is Product product)
                 {
-                    AddProductToMealNode(targetNode, product);
+                    if (targetNode.Parent != null)
+                    {
+                        AddProductToMealNode(targetNode.Parent, product);
+                    }
+                    else
+                    {
+                        AddProductToMealNode(targetNode, product);
+                    }
                     targetNode.Expand();
 
                     if(e.Effect == DragDropEffects.Move)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public class Product : Regularable
+    public class Product : Regularable, IEdible
     {
         private string m_name;
         private int m_gramms;
@@ -48,10 +48,8 @@ namespace BusinessLayer
 
                 m_gramms = value;
             }
-            get
-            {
-                return m_gramms;
-            }
+
+            get => m_gramms * m_gramms / 100;
         }
 
         public float Fats
@@ -66,13 +64,10 @@ namespace BusinessLayer
                 m_fats = value;
             }
 
-            get
-            {
-                return m_fats;
-            }
+            get => m_fats * m_gramms / 100;
         }
 
-        public float Proteins
+        public float Protein
         {
             set
             {
@@ -86,7 +81,7 @@ namespace BusinessLayer
 
             get
             {
-                return m_protein;
+                return m_protein * m_gramms / 100;
             }
         }
 
@@ -104,7 +99,7 @@ namespace BusinessLayer
 
             get
             {
-                return m_carbs;
+                return m_carbs * m_gramms / 100;
             }
         }
 
@@ -122,7 +117,7 @@ namespace BusinessLayer
 
             get
             {
-                return m_calories;
+                return m_calories * m_gramms / 100;
             }
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public class Meal
+    public class Meal : IEdible
     {
         private string m_name;
         private List<Product> m_meal;
@@ -25,6 +25,62 @@ namespace BusinessLayer
             get
             {
                 return m_name;
+            }
+        }
+
+        public float Calories
+        {
+            get
+            {
+                float calories = 0;
+                foreach(Product product in m_meal)
+                {
+                    calories += product.Calories;
+                }
+
+                return calories;
+            }
+        }
+
+        public float Protein
+        { 
+            get
+            {
+                float protein = 0;
+                foreach (Product product in m_meal)
+                {
+                    protein += product.Protein;
+                }
+
+                return protein;
+            }
+        }
+
+        public float Fats
+        {
+            get
+            {
+                float fats = 0;
+                foreach (Product product in m_meal)
+                {
+                    fats += product.Fats;
+                }
+
+                return fats;
+            }
+        }
+
+        public float Carbs
+        {
+            get
+            {
+                float carbs = 0;
+                foreach (Product product in m_meal)
+                {
+                    carbs += product.Carbs;
+                }
+
+                return carbs;
             }
         }
 

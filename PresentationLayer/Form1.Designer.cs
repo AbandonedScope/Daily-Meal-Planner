@@ -61,7 +61,7 @@ namespace PresentationLayer
             this.mealsTree.LabelEdit = true;
             this.mealsTree.Location = new System.Drawing.Point(556, 33);
             this.mealsTree.Name = "mealsTree";
-            this.mealsTree.Size = new System.Drawing.Size(283, 405);
+            this.mealsTree.Size = new System.Drawing.Size(416, 405);
             this.mealsTree.TabIndex = 1;
             this.mealsTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Tree_ItemDrag);
             this.mealsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MealsTree_NodeMouseClick);
