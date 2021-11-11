@@ -75,5 +75,7 @@ namespace BusinessLayer
         }
 
         public ActivetyType Activety { set; get;}
+
+        public User() { }
     }
 }

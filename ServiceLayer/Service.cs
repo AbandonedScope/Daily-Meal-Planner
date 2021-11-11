@@ -10,16 +10,13 @@ namespace ServiceLayer
     {
         private static CategoryDAO? m_categoryDAO;
         private static ProductDAO? m_productDAO;
-        private static DailyRation? m_dailyRation;
+        private static DailyRation m_dailyRation = new();
+        private static User m_user = new();
 
         public static void SetPath(string path)
         {
             m_categoryDAO = new CategoryDAO(path);
             m_productDAO = new ProductDAO(path);
-            if (m_dailyRation == null)
-            {
-                m_dailyRation = new DailyRation();
-            }
         }
 
         public static Category? GetCategory(string name)
@@ -64,32 +61,47 @@ namespace ServiceLayer
 
         public static void AddMealToRation(Meal meal)
         {
-            m_dailyRation ??= new DailyRation();
-
             m_dailyRation.AddMeal(meal);
         }
 
         public static void AddProductToMeal(Product product, Meal meal)
         {
-            m_dailyRation ??= new DailyRation();
-
             m_dailyRation.AddProductToMeal(product, meal);
         }
 
         public static void DeletePruductFromDailyMeal(Product product, Meal meal)
         {
-            if (m_dailyRation != null)
-            {
-                m_dailyRation.RemoveProductFromMeal(product, meal);
-            }
+            m_dailyRation.RemoveProductFromMeal(product, meal);
         }
 
         public static void DeleteMealFromDaileRation(Meal meal)
         {
-            if (m_dailyRation != null)
-            {
-                m_dailyRation.RemoveMeal(meal);
-            }
+           m_dailyRation.RemoveMeal(meal);
+        }
+
+        public static void RationClear()
+        {
+            m_dailyRation.Clear();
+        }
+
+        public static void SetUserWeight(float weight)
+        {
+            m_user.Weight = weight;
+        }
+
+        public static void SetUserHeight(float height)
+        {
+            m_user.Height = height;
+        }
+
+        public static void SetUserAge(int age)
+        {
+            m_user.Age = age;
+        }
+
+        public static void SetUserActivety(ActivetyType activety)
+        {
+            m_user.Activety = activety;
         }
     }
 }

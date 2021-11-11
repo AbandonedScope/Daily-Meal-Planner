@@ -97,5 +97,10 @@ namespace BusinessLayer
                 mealToRemoveFrom.DeleteItem(productToRemove);
             }
         }
+
+        public void Clear()
+        {
+            m_meals.Clear();
+        }
     }
 }
