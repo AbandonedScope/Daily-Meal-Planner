@@ -43,6 +43,7 @@ namespace PresentationLayer
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.userInformationGroupBox = new System.Windows.Forms.GroupBox();
+            this.activityBox = new System.Windows.Forms.ComboBox();
             this.confirmUserInformationButto = new System.Windows.Forms.Button();
             this.weightTextBox = new System.Windows.Forms.TextBox();
             this.heightTextBox = new System.Windows.Forms.TextBox();
@@ -51,7 +52,6 @@ namespace PresentationLayer
             this.heightLabel = new System.Windows.Forms.Label();
             this.ageLabel = new System.Windows.Forms.Label();
             this.activityLabel = new System.Windows.Forms.Label();
-            this.activityBox = new System.Windows.Forms.ListBox();
             this.badUserInfo = new System.Windows.Forms.ErrorProvider(this.components);
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
@@ -173,6 +173,7 @@ namespace PresentationLayer
             // userInformationGroupBox
             // 
             this.userInformationGroupBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.userInformationGroupBox.Controls.Add(this.activityBox);
             this.userInformationGroupBox.Controls.Add(this.confirmUserInformationButto);
             this.userInformationGroupBox.Controls.Add(this.weightTextBox);
             this.userInformationGroupBox.Controls.Add(this.heightTextBox);
@@ -181,7 +182,6 @@ namespace PresentationLayer
             this.userInformationGroupBox.Controls.Add(this.heightLabel);
             this.userInformationGroupBox.Controls.Add(this.ageLabel);
             this.userInformationGroupBox.Controls.Add(this.activityLabel);
-            this.userInformationGroupBox.Controls.Add(this.activityBox);
             this.userInformationGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.userInformationGroupBox.Font = new System.Drawing.Font("Segoe UI Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.userInformationGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -191,6 +191,21 @@ namespace PresentationLayer
             this.userInformationGroupBox.TabIndex = 5;
             this.userInformationGroupBox.TabStop = false;
             this.userInformationGroupBox.Text = "User informtion";
+            // 
+            // activityBox
+            // 
+            this.activityBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.activityBox.FormattingEnabled = true;
+            this.activityBox.Items.AddRange(new object[] {
+            "Low",
+            "Normal",
+            "Averrage",
+            "High"});
+            this.activityBox.Location = new System.Drawing.Point(7, 50);
+            this.activityBox.Name = "activityBox";
+            this.activityBox.Size = new System.Drawing.Size(184, 31);
+            this.activityBox.TabIndex = 6;
+            this.activityBox.SelectedIndex = 0;
             // 
             // confirmUserInformationButto
             // 
@@ -268,21 +283,6 @@ namespace PresentationLayer
             this.activityLabel.TabIndex = 5;
             this.activityLabel.Text = "Activity";
             // 
-            // activityBox
-            // 
-            this.activityBox.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.activityBox.FormattingEnabled = true;
-            this.activityBox.ItemHeight = 25;
-            this.activityBox.Items.AddRange(new object[] {
-            "Low",
-            "Normal",
-            "Averrage",
-            "High"});
-            this.activityBox.Location = new System.Drawing.Point(7, 49);
-            this.activityBox.Name = "activityBox";
-            this.activityBox.Size = new System.Drawing.Size(184, 29);
-            this.activityBox.TabIndex = 4;
-            // 
             // badUserInfo
             // 
             this.badUserInfo.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
@@ -329,7 +329,6 @@ namespace PresentationLayer
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.GroupBox userInformationGroupBox;
-        private System.Windows.Forms.ListBox activityBox;
         private System.Windows.Forms.Label activityLabel;
         private System.Windows.Forms.Label heightLabel;
         private System.Windows.Forms.Label ageLabel;
@@ -339,6 +338,7 @@ namespace PresentationLayer
         private System.Windows.Forms.TextBox heightTextBox;
         private System.Windows.Forms.TextBox ageTextBox;
         private System.Windows.Forms.Button confirmUserInformationButto;
+        private System.Windows.Forms.ComboBox activityBox;
     }
 }
 
