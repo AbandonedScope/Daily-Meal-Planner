@@ -138,6 +138,7 @@ namespace PresentationLayer
                 //}
             }
         }
+
         private void DeleteNotDigits(object sender, EventArgs e)
         {
             if (sender is TextBox textbox)
@@ -154,34 +155,7 @@ namespace PresentationLayer
                 }
             }
 
-        }
-        private void ConfirmButtonClick (object sender, EventArgs e)
-        {
-            Service.SetUserActivety((ActivityType)this.activityBox.SelectedIndex);
-            try
-            {
-                Service.SetUserAge(int.Parse(this.ageTextBox.Text));
-                Service.SetUserHeight(int.Parse(this.heightTextBox.Text));
-                Service.SetUserWeight(int.Parse(this.weightTextBox.Text));
-            }
-            catch(ArgumentOutOfRangeException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            catch(FormatException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        #region Event Handlers
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            AddMealToTree(new Meal("Breakfast"));
-            AddMealToTree(new Meal("Lunch"));
-            AddMealToTree(new Meal("Dinner"));
-            LoadCategoryTree();
-
-        }
+        } 
 
         private void LoadCategoryTree()
         {
@@ -205,6 +179,16 @@ namespace PresentationLayer
                 i++;
             }
             this.categories_ProductsTree.EndUpdate();
+        }
+       
+        #region Event Handlers
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            AddMealToTree(new Meal("Breakfast"));
+            AddMealToTree(new Meal("Lunch"));
+            AddMealToTree(new Meal("Dinner"));
+            LoadCategoryTree();
+
         }
 
         private void Tree_ItemDrag(object sender, ItemDragEventArgs e)
@@ -369,7 +353,73 @@ namespace PresentationLayer
             }
         }
 
+        private void ConfirmButtonClick(object sender, EventArgs e)
+        {
+            Service.SetUserActivety((ActivityType)this.activityBox.SelectedIndex);
+            bool flag1, flag2, flag3;
+            if (string.IsNullOrEmpty(this.ageTextBox.Text))
+            {
+                flag1 = false;
+            }
+            else
+            {
+                Service.SetUserAge(int.Parse(this.ageTextBox.Text));
+                flag1 = true;
+            }
 
+            if (string.IsNullOrEmpty(this.heightTextBox.Text))
+            {
+                flag2 = false;
+            }
+            else
+            {
+                Service.SetUserHeight(int.Parse(this.heightTextBox.Text));
+                flag2 = true;
+            }
+
+            if (string.IsNullOrEmpty(this.weightTextBox.Text))
+            {
+                flag3 = false;
+            }
+            else
+            {
+                Service.SetUserWeight(int.Parse(this.weightTextBox.Text));
+                flag3 = true;
+            }
+
+            badUserInfo.Clear();
+            if (!flag1)
+            {
+                badUserInfo.SetError(ageTextBox, "Age must be entered");
+            }
+
+            if (!flag2)
+            {
+                badUserInfo.SetError(heightTextBox, "Height must be entered");
+            }
+
+            if (!flag3)
+            {
+                badUserInfo.SetError(weightTextBox, "Weight must be entered");
+            }
+            string message = string.Empty;
+            if (flag1 && flag2 && flag3)
+            {
+                if (!Service.UserValidate(ref message))
+                {
+                    this.categories_ProductsTree.Enabled = false;
+                    this.searchBox.Enabled = false;
+                    this.mealsTree.Enabled = false;
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    this.categories_ProductsTree.Enabled = true;
+                    this.searchBox.Enabled = true;
+                    this.mealsTree.Enabled = true;
+                }
+            }
+        }
         #endregion
 
     }

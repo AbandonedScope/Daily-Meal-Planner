@@ -8,125 +8,92 @@ namespace BusinessLayer
 {
     public class Product : Regularable, IEdible
     {
-        private string m_name;
-        private int m_gramms;
-        private float m_protein;
-        private float m_fats;
-        private float m_carbs;
-        private float m_calories;
+        public string Name {set; get; }
 
-        public string Name
+        public int Gramms {set; get; }
+
+        public float Fats {set; get; }
+
+        public float Protein {set; get; }
+
+        public float Carbs {set; get; }
+
+        public float Calories {set; get; }
+
+        public Product() 
         {
-            set
+            Validate += (Regularable product, ref string message, ref bool flag) =>
             {
-                if (string.IsNullOrEmpty(value))
+                if (flag)
                 {
-                    throw new ArgumentNullException(nameof(value));
+                    if (product is Product prod && string.IsNullOrEmpty(prod.Name))
+                    {
+                        message = "Name can't be empty";
+                        flag = false;
+                    }
                 }
+            };
 
-                m_name = value;
-            }
-            get
+            Validate += (Regularable product, ref string message, ref bool flag) =>
             {
-                if (string.IsNullOrEmpty(m_name))
+                if (flag)
                 {
-                    throw new ArgumentNullException(nameof(m_name));
+                    if (product is Product prod && prod.Gramms < 0)
+                    {
+                        message = "Gramms can't be less than zero.";
+                        flag = false;
+                    }
                 }
+            };
 
-                return m_name;
-            }
+            Validate += (Regularable product, ref string message, ref bool flag) =>
+            {
+                if (flag)
+                {
+                    if (product is Product prod && prod.Fats < 0)
+                    {
+                        message = "Fats can't be less than zero.";
+                        flag = false;
+                    }
+                }
+            };
+
+            Validate += (Regularable product, ref string message, ref bool flag) =>
+            {
+                if (flag)
+                {
+                    if (product is Product prod && prod.Protein < 0)
+                    {
+                        message = "Protein can't be less than zero.";
+                        flag = false;
+                    }
+                }
+            };
+
+            Validate += (Regularable product, ref string message, ref bool flag) =>
+            {
+                if (flag)
+                {
+                    if (product is Product prod && prod.Calories < 0)
+                    {
+                        message = "Calories can't be less than zero.";
+                        flag = false;
+                    }
+                }
+            };
+
+
         }
 
-        public int Gramms
+        public Product(string name) : this()
         {
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-
-                m_gramms = value;
-            }
-
-            get => m_gramms * m_gramms / 100;
+            Name = name; 
         }
 
-        public float Fats
-        {
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
 
-                m_fats = value;
-            }
-
-            get => m_fats * m_gramms / 100;
-        }
-
-        public float Protein
-        {
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-
-                m_protein = value;
-            }
-
-            get
-            {
-                return m_protein * m_gramms / 100;
-            }
-        }
-
-        public float Carbs
-        {
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-
-                m_carbs = value;
-            }
-
-            get
-            {
-                return m_carbs * m_gramms / 100;
-            }
-        }
-
-        public float Calories
-        {
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(value));
-                }
-
-                m_calories = value;
-            }
-
-            get
-            {
-                return m_calories * m_gramms / 100;
-            }
-        }
-
-        public Product() { }
-
-        public Product(string name) { Name = name; }
         public override int GetHashCode()
         {
-            return m_name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         public override bool Equals(object obj)
@@ -137,7 +104,7 @@ namespace BusinessLayer
             }
 
             Product product = obj as Product;
-            if (product.m_name == this.m_name)
+            if (product.Name == this.Name)
             {
                 return true;
             }

@@ -43,6 +43,7 @@ namespace PresentationLayer
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.userInformationGroupBox = new System.Windows.Forms.GroupBox();
+            this.confirmUserInformationButto = new System.Windows.Forms.Button();
             this.weightTextBox = new System.Windows.Forms.TextBox();
             this.heightTextBox = new System.Windows.Forms.TextBox();
             this.ageTextBox = new System.Windows.Forms.TextBox();
@@ -51,17 +52,17 @@ namespace PresentationLayer
             this.ageLabel = new System.Windows.Forms.Label();
             this.activityLabel = new System.Windows.Forms.Label();
             this.activityBox = new System.Windows.Forms.ListBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.confirmUserInformationButto = new System.Windows.Forms.Button();
+            this.badUserInfo = new System.Windows.Forms.ErrorProvider(this.components);
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
             this.userInformationGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.badUserInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // categories_ProductsTree
             // 
+            this.categories_ProductsTree.Enabled = false;
             this.categories_ProductsTree.Location = new System.Drawing.Point(246, 63);
             this.categories_ProductsTree.Name = "categories_ProductsTree";
             this.categories_ProductsTree.Size = new System.Drawing.Size(416, 405);
@@ -73,6 +74,7 @@ namespace PresentationLayer
             // 
             this.mealsTree.AllowDrop = true;
             this.mealsTree.ContextMenuStrip = this.mealTreeViewContextMenuStrip;
+            this.mealsTree.Enabled = false;
             this.mealsTree.LabelEdit = true;
             this.mealsTree.Location = new System.Drawing.Point(721, 63);
             this.mealsTree.Name = "mealsTree";
@@ -160,6 +162,7 @@ namespace PresentationLayer
             // 
             // searchBox
             // 
+            this.searchBox.Enabled = false;
             this.searchBox.Location = new System.Drawing.Point(246, 30);
             this.searchBox.Name = "searchBox";
             this.searchBox.PlaceholderText = "Search.....";
@@ -188,6 +191,17 @@ namespace PresentationLayer
             this.userInformationGroupBox.TabIndex = 5;
             this.userInformationGroupBox.TabStop = false;
             this.userInformationGroupBox.Text = "User informtion";
+            // 
+            // confirmUserInformationButto
+            // 
+            this.confirmUserInformationButto.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmUserInformationButto.Location = new System.Drawing.Point(115, 253);
+            this.confirmUserInformationButto.Name = "confirmUserInformationButto";
+            this.confirmUserInformationButto.Size = new System.Drawing.Size(106, 35);
+            this.confirmUserInformationButto.TabIndex = 13;
+            this.confirmUserInformationButto.Text = "Confirm";
+            this.confirmUserInformationButto.UseVisualStyleBackColor = true;
+            this.confirmUserInformationButto.Click += new System.EventHandler(this.ConfirmButtonClick);
             // 
             // weightTextBox
             // 
@@ -269,20 +283,10 @@ namespace PresentationLayer
             this.activityBox.Size = new System.Drawing.Size(184, 29);
             this.activityBox.TabIndex = 4;
             // 
-            // errorProvider1
+            // badUserInfo
             // 
-            this.errorProvider1.ContainerControl = this;
-            // 
-            // confirmUserInformationButto
-            // 
-            this.confirmUserInformationButto.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.confirmUserInformationButto.Location = new System.Drawing.Point(115, 253);
-            this.confirmUserInformationButto.Name = "confirmUserInformationButto";
-            this.confirmUserInformationButto.Size = new System.Drawing.Size(106, 35);
-            this.confirmUserInformationButto.TabIndex = 13;
-            this.confirmUserInformationButto.Text = "Confirm";
-            this.confirmUserInformationButto.UseVisualStyleBackColor = true;
-            this.confirmUserInformationButto.Click += new System.EventHandler(this.ConfirmButtonClick);
+            this.badUserInfo.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.badUserInfo.ContainerControl = this;
             // 
             // Form1
             // 
@@ -304,7 +308,7 @@ namespace PresentationLayer
             this.mealContextMenuStrip.ResumeLayout(false);
             this.userInformationGroupBox.ResumeLayout(false);
             this.userInformationGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.badUserInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,7 +334,7 @@ namespace PresentationLayer
         private System.Windows.Forms.Label heightLabel;
         private System.Windows.Forms.Label ageLabel;
         private System.Windows.Forms.Label weightLabel;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider badUserInfo;
         private System.Windows.Forms.TextBox weightTextBox;
         private System.Windows.Forms.TextBox heightTextBox;
         private System.Windows.Forms.TextBox ageTextBox;

@@ -9,57 +9,22 @@ namespace BusinessLayer
 {
     public abstract class Regularable
     {
-        [XmlIgnore]
-        public HashSet<Predicate<Regularable>> m_rules;
-        public List<string> m_messeges;
+        public delegate void Rules(Regularable ob, ref string message, ref bool flag);
 
-        public Regularable() { }
+        private Rules validate;
 
-        public void AddRule(string messegeAboutMistake, Predicate<Regularable> rule)
+        public Rules Validate
         {
-            m_rules.Add(rule);
-            m_messeges.Add(messegeAboutMistake);
-        }
-
-        public bool RemoveRule(Predicate<Regularable> rule)
-        {
-            int i = 0;
-            bool flag = false;
-            foreach (Predicate<Regularable> pred in m_rules)
+            protected set
             {
-                if (pred == rule)
-                {
-                    flag = true;
-                    break;
-                }
-                i++;
+                validate = value;
             }
 
-            if (flag)
+            get
             {
-                m_rules.Remove(rule);
-                m_messeges.RemoveAt(i);
-                return true;
+                return validate;
             }
-
-            return false;
         }
-
-        public bool Validate(out string messege)
-        {
-            int i = 0;
-            foreach(Predicate<Regularable> rule in m_rules)
-            {
-                if(!rule(this))
-                {
-                    messege = m_messeges[i];
-                    return false;
-                }
-                i++;
-            }
-
-            messege = string.Empty;
-            return true;
-        }
+       
     }
 }

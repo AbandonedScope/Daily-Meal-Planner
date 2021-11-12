@@ -103,5 +103,12 @@ namespace ServiceLayer
         {
             m_user.Activety = activety;
         }
+
+        public static bool UserValidate(ref string message)
+        {
+            bool flag = true;
+            m_user.Validate(m_user, ref message, ref flag);
+            return flag;
+        }
     }
 }
