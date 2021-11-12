@@ -95,6 +95,84 @@ namespace PresentationLayer
             }
         }
 
+
+        private void DeleteNodesFromCollection(TreeNodeCollection collection, string text)
+        {
+            //bool flag = false;
+            for (int i = 0; i < collection.Count; i++)
+            {
+
+                if (!collection[i].Text.ToLower().Contains(text.ToLower()))
+                {
+                    bool flag = false;
+                    for (int j = 0; j < collection[i].Nodes.Count; j++)
+                    {
+                        if (!collection[i].Nodes[j].Text.ToLower().Contains(text.ToLower()))
+                        {
+                            collection[i].Nodes[j].Remove();
+                            j--;
+                        }
+                        else
+                        {
+                            flag = true;
+                        }
+                    }
+                    if (!flag)
+                    {
+                        collection[i].Remove();
+                        i--;
+                    }
+                }
+                //if (collection[i].Nodes != null)
+                //{
+                //    flag = DeleteNodesFromCollection(collection[i].Nodes, text);
+                //}
+                //if (!collection[i].Text.Contains(text) && !flag)
+                //{
+                //    collection[i].Remove();
+                //    i--;
+                //}
+                //else 
+                //{
+                //    flag = true;
+                //}
+            }
+        }
+        private void DeleteNotDigits(object sender, EventArgs e)
+        {
+            if (sender is TextBox textbox)
+            {
+                for (int i = 0; i < textbox.Text.Length; i++)
+                {
+                    if (!char.IsDigit(textbox.Text[i]))
+                    {
+                        string text = textbox.Text.Remove(i, 1);
+                        textbox.Text = string.Empty;
+                        textbox.AppendText(text);
+                        i--;
+                    }
+                }
+            }
+
+        }
+        private void ConfirmButtonClick (object sender, EventArgs e)
+        {
+            Service.SetUserActivety((ActivityType)this.activityBox.SelectedIndex);
+            try
+            {
+                Service.SetUserAge(int.Parse(this.ageTextBox.Text));
+                Service.SetUserHeight(int.Parse(this.heightTextBox.Text));
+                Service.SetUserWeight(int.Parse(this.weightTextBox.Text));
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch(FormatException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         #region Event Handlers
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -291,48 +369,8 @@ namespace PresentationLayer
             }
         }
 
-        private void DeleteNodesFromCollection(TreeNodeCollection collection, string text)
-        {
-            //bool flag = false;
-            for (int i = 0; i < collection.Count; i++)
-            {
-               
-                if (!collection[i].Text.ToLower().Contains(text.ToLower()))
-                {
-                    bool flag = false;
-                    for (int j = 0; j < collection[i].Nodes.Count; j++)
-                    {
-                        if (!collection[i].Nodes[j].Text.ToLower().Contains(text.ToLower()))
-                        {
-                            collection[i].Nodes[j].Remove();
-                            j--;
-                        }
-                        else
-                        {
-                            flag = true;
-                        }
-                    }
-                    if(!flag)
-                    {
-                        collection[i].Remove();
-                        i--;
-                    }
-                }
-                //if (collection[i].Nodes != null)
-                //{
-                //    flag = DeleteNodesFromCollection(collection[i].Nodes, text);
-                //}
-                //if (!collection[i].Text.Contains(text) && !flag)
-                //{
-                //    collection[i].Remove();
-                //    i--;
-                //}
-                //else 
-                //{
-                //    flag = true;
-                //}
-            }
-        }
+
         #endregion
+
     }
 }

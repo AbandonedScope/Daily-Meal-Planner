@@ -84,12 +84,12 @@ namespace ServiceLayer
             m_dailyRation.Clear();
         }
 
-        public static void SetUserWeight(float weight)
+        public static void SetUserWeight(int weight)
         {
             m_user.Weight = weight;
         }
 
-        public static void SetUserHeight(float height)
+        public static void SetUserHeight(int height)
         {
             m_user.Height = height;
         }
@@ -99,7 +99,7 @@ namespace ServiceLayer
             m_user.Age = age;
         }
 
-        public static void SetUserActivety(ActivetyType activety)
+        public static void SetUserActivety(ActivityType activety)
         {
             m_user.Activety = activety;
         }

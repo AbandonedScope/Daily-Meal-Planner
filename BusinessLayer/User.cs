@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public enum ActivetyType
+    public enum ActivityType
     {
         Low,
         Normal,
@@ -16,15 +16,15 @@ namespace BusinessLayer
 
     public class User
     {
-        private float m_weight;
-        private float m_height;
+        private int m_weight;
+        private int m_height;
         private int m_age;
 
-        public float Weight
+        public int Weight
         {
             set
             {
-                if(value < 30 && value > 300)
+                if(value < 30 || value > 300)
                 {
                     throw new ArgumentOutOfRangeException($"{nameof(Weight)} must be between 30 and 300.", nameof(Weight));
                 }
@@ -38,11 +38,11 @@ namespace BusinessLayer
             }
         }
 
-        public float Height
+        public int Height
         {
             set
             {
-                if (value < 140 && value > 300)
+                if (value < 140 || value > 300)
                 {
                     throw new ArgumentOutOfRangeException($"{nameof(Height)} must be between 140 and 300.", nameof(Height));
                 }
@@ -60,7 +60,7 @@ namespace BusinessLayer
         {
             set
             {
-                if (value < 10 && value > 150)
+                if (value < 10 || value > 150)
                 {
                     throw new ArgumentOutOfRangeException($"{nameof(Age)} must be between 10 and 150.", nameof(Age));
                 }
@@ -74,7 +74,7 @@ namespace BusinessLayer
             }
         }
 
-        public ActivetyType Activety { set; get;}
+        public ActivityType Activety { set; get;}
 
         public User() { }
     }
