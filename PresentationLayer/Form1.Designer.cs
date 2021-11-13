@@ -44,7 +44,7 @@ namespace PresentationLayer
             this.searchBox = new System.Windows.Forms.TextBox();
             this.userInformationGroupBox = new System.Windows.Forms.GroupBox();
             this.activityBox = new System.Windows.Forms.ComboBox();
-            this.confirmUserInformationButto = new System.Windows.Forms.Button();
+            this.confirmUserInformationButton = new System.Windows.Forms.Button();
             this.weightTextBox = new System.Windows.Forms.TextBox();
             this.heightTextBox = new System.Windows.Forms.TextBox();
             this.ageTextBox = new System.Windows.Forms.TextBox();
@@ -54,11 +54,25 @@ namespace PresentationLayer
             this.activityLabel = new System.Windows.Forms.Label();
             this.badUserInfo = new System.Windows.Forms.ErrorProvider(this.components);
             this.currentMealsCaloriesBar = new System.Windows.Forms.ProgressBar();
+            this.productWeightTrackBar = new System.Windows.Forms.TrackBar();
+            this.productInfoGroupBox = new System.Windows.Forms.GroupBox();
+            this.carbsLabel = new System.Windows.Forms.Label();
+            this.proteinLabel = new System.Windows.Forms.Label();
+            this.fatsLabel = new System.Windows.Forms.Label();
+            this.caloriesLabel = new System.Windows.Forms.Label();
+            this.grammsLabel = new System.Windows.Forms.Label();
+            this.carbsTextBox = new System.Windows.Forms.TextBox();
+            this.proteinTextBox = new System.Windows.Forms.TextBox();
+            this.fatsTextBox = new System.Windows.Forms.TextBox();
+            this.caloriesTextBox = new System.Windows.Forms.TextBox();
+            this.grammsTextBox = new System.Windows.Forms.TextBox();
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
             this.userInformationGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.badUserInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productWeightTrackBar)).BeginInit();
+            this.productInfoGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // categories_ProductsTree
@@ -69,7 +83,7 @@ namespace PresentationLayer
             this.categories_ProductsTree.Size = new System.Drawing.Size(416, 405);
             this.categories_ProductsTree.TabIndex = 0;
             this.categories_ProductsTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Tree_ItemDrag);
-            this.categories_ProductsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MealsTree_NodeMouseClick);
+            this.categories_ProductsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NodeMouseClick);
             // 
             // mealsTree
             // 
@@ -83,7 +97,7 @@ namespace PresentationLayer
             this.mealsTree.TabIndex = 1;
             this.mealsTree.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.MealsTree_AfterLabelEdit);
             this.mealsTree.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.Tree_ItemDrag);
-            this.mealsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MealsTree_NodeMouseClick);
+            this.mealsTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.NodeMouseClick);
             this.mealsTree.DragDrop += new System.Windows.Forms.DragEventHandler(this.MealsTree_DragDrop);
             this.mealsTree.DragEnter += new System.Windows.Forms.DragEventHandler(this.MealsTree_DragEnter);
             this.mealsTree.DragOver += new System.Windows.Forms.DragEventHandler(this.MealsTree_DragOver);
@@ -154,6 +168,7 @@ namespace PresentationLayer
             // 
             // maxCaloriesBar
             // 
+            this.maxCaloriesBar.BackColor = System.Drawing.SystemColors.Control;
             this.maxCaloriesBar.Location = new System.Drawing.Point(721, 474);
             this.maxCaloriesBar.Maximum = 5984;
             this.maxCaloriesBar.Name = "maxCaloriesBar";
@@ -168,13 +183,13 @@ namespace PresentationLayer
             this.searchBox.PlaceholderText = "Search.....";
             this.searchBox.Size = new System.Drawing.Size(416, 27);
             this.searchBox.TabIndex = 4;
-            this.searchBox.TextChanged += new System.EventHandler(this.SerachTextChange);
+            this.searchBox.TextChanged += new System.EventHandler(this.SearchTextChange);
             // 
             // userInformationGroupBox
             // 
             this.userInformationGroupBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.userInformationGroupBox.Controls.Add(this.activityBox);
-            this.userInformationGroupBox.Controls.Add(this.confirmUserInformationButto);
+            this.userInformationGroupBox.Controls.Add(this.confirmUserInformationButton);
             this.userInformationGroupBox.Controls.Add(this.weightTextBox);
             this.userInformationGroupBox.Controls.Add(this.heightTextBox);
             this.userInformationGroupBox.Controls.Add(this.ageTextBox);
@@ -206,40 +221,46 @@ namespace PresentationLayer
             this.activityBox.Size = new System.Drawing.Size(184, 31);
             this.activityBox.TabIndex = 6;
             // 
-            // confirmUserInformationButto
+            // confirmUserInformationButton
             // 
-            this.confirmUserInformationButto.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.confirmUserInformationButto.Location = new System.Drawing.Point(115, 253);
-            this.confirmUserInformationButto.Name = "confirmUserInformationButto";
-            this.confirmUserInformationButto.Size = new System.Drawing.Size(106, 35);
-            this.confirmUserInformationButto.TabIndex = 13;
-            this.confirmUserInformationButto.Text = "Confirm";
-            this.confirmUserInformationButto.UseVisualStyleBackColor = true;
-            this.confirmUserInformationButto.Click += new System.EventHandler(this.ConfirmButtonClick);
+            this.confirmUserInformationButton.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.confirmUserInformationButton.Location = new System.Drawing.Point(115, 253);
+            this.confirmUserInformationButton.Name = "confirmUserInformationButton";
+            this.confirmUserInformationButton.Size = new System.Drawing.Size(106, 35);
+            this.confirmUserInformationButton.TabIndex = 13;
+            this.confirmUserInformationButton.Text = "Confirm";
+            this.confirmUserInformationButton.UseVisualStyleBackColor = true;
+            this.confirmUserInformationButton.Click += new System.EventHandler(this.ConfirmButtonClick);
             // 
             // weightTextBox
             // 
+            this.badUserInfo.SetIconPadding(this.weightTextBox, 5);
             this.weightTextBox.Location = new System.Drawing.Point(7, 217);
             this.weightTextBox.Name = "weightTextBox";
             this.weightTextBox.Size = new System.Drawing.Size(184, 30);
             this.weightTextBox.TabIndex = 12;
             this.weightTextBox.TextChanged += new System.EventHandler(this.DeleteNotDigits);
+            this.weightTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPress);
             // 
             // heightTextBox
             // 
+            this.badUserInfo.SetIconPadding(this.heightTextBox, 5);
             this.heightTextBox.Location = new System.Drawing.Point(7, 160);
             this.heightTextBox.Name = "heightTextBox";
             this.heightTextBox.Size = new System.Drawing.Size(184, 30);
             this.heightTextBox.TabIndex = 11;
             this.heightTextBox.TextChanged += new System.EventHandler(this.DeleteNotDigits);
+            this.heightTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPress);
             // 
             // ageTextBox
             // 
+            this.badUserInfo.SetIconPadding(this.ageTextBox, 5);
             this.ageTextBox.Location = new System.Drawing.Point(7, 105);
             this.ageTextBox.Name = "ageTextBox";
             this.ageTextBox.Size = new System.Drawing.Size(184, 30);
             this.ageTextBox.TabIndex = 10;
             this.ageTextBox.TextChanged += new System.EventHandler(this.DeleteNotDigits);
+            this.ageTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EnterPress);
             // 
             // weightLabel
             // 
@@ -289,17 +310,150 @@ namespace PresentationLayer
             // 
             // currentMealsCaloriesBar
             // 
-            this.currentMealsCaloriesBar.Location = new System.Drawing.Point(721, 510);
+            this.currentMealsCaloriesBar.Location = new System.Drawing.Point(721, 521);
             this.currentMealsCaloriesBar.Maximum = 5984;
             this.currentMealsCaloriesBar.Name = "currentMealsCaloriesBar";
             this.currentMealsCaloriesBar.Size = new System.Drawing.Size(416, 29);
             this.currentMealsCaloriesBar.TabIndex = 6;
+            // 
+            // productWeightTrackBar
+            // 
+            this.productWeightTrackBar.BackColor = System.Drawing.SystemColors.Control;
+            this.productWeightTrackBar.Enabled = false;
+            this.productWeightTrackBar.LargeChange = 20;
+            this.productWeightTrackBar.Location = new System.Drawing.Point(246, 474);
+            this.productWeightTrackBar.Maximum = 1000;
+            this.productWeightTrackBar.Minimum = 1;
+            this.productWeightTrackBar.Name = "productWeightTrackBar";
+            this.productWeightTrackBar.Size = new System.Drawing.Size(416, 56);
+            this.productWeightTrackBar.SmallChange = 20;
+            this.productWeightTrackBar.TabIndex = 7;
+            this.productWeightTrackBar.TickFrequency = 50;
+            this.productWeightTrackBar.Value = 100;
+            this.productWeightTrackBar.Scroll += new System.EventHandler(this.ProductWeightTrackBar_Scroll);
+            // 
+            // productInfoGroupBox
+            // 
+            this.productInfoGroupBox.Controls.Add(this.carbsLabel);
+            this.productInfoGroupBox.Controls.Add(this.proteinLabel);
+            this.productInfoGroupBox.Controls.Add(this.fatsLabel);
+            this.productInfoGroupBox.Controls.Add(this.caloriesLabel);
+            this.productInfoGroupBox.Controls.Add(this.grammsLabel);
+            this.productInfoGroupBox.Controls.Add(this.carbsTextBox);
+            this.productInfoGroupBox.Controls.Add(this.proteinTextBox);
+            this.productInfoGroupBox.Controls.Add(this.fatsTextBox);
+            this.productInfoGroupBox.Controls.Add(this.caloriesTextBox);
+            this.productInfoGroupBox.Controls.Add(this.grammsTextBox);
+            this.productInfoGroupBox.Font = new System.Drawing.Font("Segoe UI Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.productInfoGroupBox.Location = new System.Drawing.Point(13, 348);
+            this.productInfoGroupBox.Name = "productInfoGroupBox";
+            this.productInfoGroupBox.Size = new System.Drawing.Size(227, 202);
+            this.productInfoGroupBox.TabIndex = 8;
+            this.productInfoGroupBox.TabStop = false;
+            this.productInfoGroupBox.Text = "Current Product Info";
+            // 
+            // carbsLabel
+            // 
+            this.carbsLabel.AutoSize = true;
+            this.carbsLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.carbsLabel.Location = new System.Drawing.Point(7, 174);
+            this.carbsLabel.Name = "carbsLabel";
+            this.carbsLabel.Size = new System.Drawing.Size(48, 20);
+            this.carbsLabel.TabIndex = 12;
+            this.carbsLabel.Text = "Carbs";
+            // 
+            // proteinLabel
+            // 
+            this.proteinLabel.AutoSize = true;
+            this.proteinLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.proteinLabel.Location = new System.Drawing.Point(6, 143);
+            this.proteinLabel.Name = "proteinLabel";
+            this.proteinLabel.Size = new System.Drawing.Size(60, 20);
+            this.proteinLabel.TabIndex = 12;
+            this.proteinLabel.Text = "Protein";
+            // 
+            // fatsLabel
+            // 
+            this.fatsLabel.AutoSize = true;
+            this.fatsLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.fatsLabel.Location = new System.Drawing.Point(7, 112);
+            this.fatsLabel.Name = "fatsLabel";
+            this.fatsLabel.Size = new System.Drawing.Size(38, 20);
+            this.fatsLabel.TabIndex = 12;
+            this.fatsLabel.Text = "Fats";
+            // 
+            // caloriesLabel
+            // 
+            this.caloriesLabel.AutoSize = true;
+            this.caloriesLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.caloriesLabel.Location = new System.Drawing.Point(7, 81);
+            this.caloriesLabel.Name = "caloriesLabel";
+            this.caloriesLabel.Size = new System.Drawing.Size(64, 20);
+            this.caloriesLabel.TabIndex = 12;
+            this.caloriesLabel.Text = "Calories";
+            // 
+            // grammsLabel
+            // 
+            this.grammsLabel.AutoSize = true;
+            this.grammsLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.grammsLabel.Location = new System.Drawing.Point(7, 47);
+            this.grammsLabel.Name = "grammsLabel";
+            this.grammsLabel.Size = new System.Drawing.Size(69, 20);
+            this.grammsLabel.TabIndex = 11;
+            this.grammsLabel.Text = "Gramms";
+            // 
+            // carbsTextBox
+            // 
+            this.carbsTextBox.Enabled = false;
+            this.carbsTextBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.carbsTextBox.Location = new System.Drawing.Point(115, 169);
+            this.carbsTextBox.Name = "carbsTextBox";
+            this.carbsTextBox.Size = new System.Drawing.Size(106, 25);
+            this.carbsTextBox.TabIndex = 10;
+            // 
+            // proteinTextBox
+            // 
+            this.proteinTextBox.Enabled = false;
+            this.proteinTextBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.proteinTextBox.Location = new System.Drawing.Point(115, 138);
+            this.proteinTextBox.Name = "proteinTextBox";
+            this.proteinTextBox.Size = new System.Drawing.Size(106, 25);
+            this.proteinTextBox.TabIndex = 10;
+            // 
+            // fatsTextBox
+            // 
+            this.fatsTextBox.Enabled = false;
+            this.fatsTextBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.fatsTextBox.Location = new System.Drawing.Point(115, 107);
+            this.fatsTextBox.Name = "fatsTextBox";
+            this.fatsTextBox.Size = new System.Drawing.Size(106, 25);
+            this.fatsTextBox.TabIndex = 10;
+            // 
+            // caloriesTextBox
+            // 
+            this.caloriesTextBox.Enabled = false;
+            this.caloriesTextBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.caloriesTextBox.Location = new System.Drawing.Point(115, 76);
+            this.caloriesTextBox.Name = "caloriesTextBox";
+            this.caloriesTextBox.Size = new System.Drawing.Size(106, 25);
+            this.caloriesTextBox.TabIndex = 10;
+            // 
+            // grammsTextBox
+            // 
+            this.grammsTextBox.Enabled = false;
+            this.grammsTextBox.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.grammsTextBox.Location = new System.Drawing.Point(115, 45);
+            this.grammsTextBox.Name = "grammsTextBox";
+            this.grammsTextBox.Size = new System.Drawing.Size(106, 25);
+            this.grammsTextBox.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 630);
+            this.Controls.Add(this.productInfoGroupBox);
+            this.Controls.Add(this.productWeightTrackBar);
             this.Controls.Add(this.currentMealsCaloriesBar);
             this.Controls.Add(this.userInformationGroupBox);
             this.Controls.Add(this.searchBox);
@@ -319,6 +473,9 @@ namespace PresentationLayer
             this.userInformationGroupBox.ResumeLayout(false);
             this.userInformationGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.badUserInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productWeightTrackBar)).EndInit();
+            this.productInfoGroupBox.ResumeLayout(false);
+            this.productInfoGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -347,9 +504,21 @@ namespace PresentationLayer
         private System.Windows.Forms.TextBox weightTextBox;
         private System.Windows.Forms.TextBox heightTextBox;
         private System.Windows.Forms.TextBox ageTextBox;
-        private System.Windows.Forms.Button confirmUserInformationButto;
+        private System.Windows.Forms.Button confirmUserInformationButton;
         private System.Windows.Forms.ComboBox activityBox;
         private System.Windows.Forms.ProgressBar currentMealsCaloriesBar;
+        private System.Windows.Forms.TrackBar productWeightTrackBar;
+        private System.Windows.Forms.GroupBox productInfoGroupBox;
+        private System.Windows.Forms.Label fatsLabel;
+        private System.Windows.Forms.Label caloriesLabel;
+        private System.Windows.Forms.Label grammsLabel;
+        private System.Windows.Forms.TextBox carbsTextBox;
+        private System.Windows.Forms.TextBox proteinTextBox;
+        private System.Windows.Forms.TextBox fatsTextBox;
+        private System.Windows.Forms.TextBox caloriesTextBox;
+        private System.Windows.Forms.TextBox grammsTextBox;
+        private System.Windows.Forms.Label carbsLabel;
+        private System.Windows.Forms.Label proteinLabel;
     }
 }
 

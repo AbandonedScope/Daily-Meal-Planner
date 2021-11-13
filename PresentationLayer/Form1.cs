@@ -99,7 +99,6 @@ namespace PresentationLayer
             }
         }
 
-
         private void DeleteNodesFromCollection(TreeNodeCollection collection, string text)
         {
             //bool flag = false;
@@ -189,6 +188,15 @@ namespace PresentationLayer
         {
             this.currentMealsCaloriesBar.Value = Service.GetCurrentCalories();
         }
+
+        private void ProductInfoRenew(Product product)
+        {
+            this.grammsTextBox.Text = product.Gramms.ToString();
+            this.caloriesTextBox.Text = ((int)product.Calories).ToString();
+            this.fatsTextBox.Text = ((int)product.Fats).ToString();
+            this.proteinTextBox.Text = ((int)product.Protein).ToString();
+            this.carbsTextBox.Text = ((int)product.Carbs).ToString();
+        }
        
         #region Event Handlers
         private void Form1_Load(object sender, EventArgs e)
@@ -245,6 +253,11 @@ namespace PresentationLayer
 
         private void MealsTree_AfterLabelEdit(object sender, System.Windows.Forms.NodeLabelEditEventArgs e)
         {
+            if (e.Label == null)
+            {
+                e.CancelEdit = true;
+                return;
+            }
             
             if (e.Node.Tag is Meal meal)
             {
@@ -272,6 +285,8 @@ namespace PresentationLayer
                     }
                 }
             }
+            
+
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -289,11 +304,28 @@ namespace PresentationLayer
             Service.RationClear();
         }
 
-        private void MealsTree_NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
+        private void NodeMouseClick(object sender, System.Windows.Forms.TreeNodeMouseClickEventArgs e)
         {
             if (sender is TreeView tree)
             {
                 tree.SelectedNode = e.Node;
+                if (tree == this.categories_ProductsTree)
+                {
+                    this.productWeightTrackBar.Enabled = false;
+                }
+                else if (tree == this.mealsTree)
+                {
+                    this.productWeightTrackBar.Enabled = true;
+                    if (e.Node.Tag is Product product)
+                    {
+                        tree.LabelEdit = false;
+                        ProductInfoRenew(product);
+                    }
+                    else
+                    {
+                        tree.LabelEdit = true;
+                    }
+                }
             }
         }
 
@@ -321,6 +353,7 @@ namespace PresentationLayer
                 TreeNode? draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
                 if (targetNode != null && (targetNode.Tag is Meal || targetNode.Parent != null) && draggedNode.Tag is Product product)
                 {
+                    Product prod = new(product);
                     if (e.Effect == DragDropEffects.Move)
                     {
                         DeleteNode(draggedNode);
@@ -328,18 +361,18 @@ namespace PresentationLayer
 
                     if (targetNode.Parent != null)
                     {
-                        AddProductToMealNode(targetNode.Parent, product);
+                        AddProductToMealNode(targetNode.Parent, prod);
                     }
                     else
                     {
-                        AddProductToMealNode(targetNode, product);
+                        AddProductToMealNode(targetNode, prod);
                     }
                     targetNode.Expand();
                 }
             }
         }
         
-        private void SerachTextChange(object sender, EventArgs e)
+        private void SearchTextChange(object sender, EventArgs e)
         {
             LoadCategoryTree();
             if(sender is TextBox serchBox && !string.IsNullOrEmpty(serchBox.Text))
@@ -412,8 +445,9 @@ namespace PresentationLayer
                     this.categories_ProductsTree.Enabled = false;
                     this.searchBox.Enabled = false;
                     this.mealsTree.Enabled = false;
-                    MessageBox.Show(message);
                     this.maxCaloriesBar.Value = this.maxCaloriesBar.Minimum;
+                    this.productWeightTrackBar.Enabled = false;
+                    MessageBox.Show(message);
                 }
                 else
                 { 
@@ -424,7 +458,29 @@ namespace PresentationLayer
                 }
             }
         }
+        
+        private void ProductWeightTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (this.mealsTree.SelectedNode != null && this.mealsTree.SelectedNode.Tag is Product product)
+            {
+                if (sender is TrackBar bar)
+                {
+                    product.Gramms = bar.Value;
+                    ProductInfoRenew(product);
+                    CurenCaloriesChange();
+                }
+            }
+        }
+
+
         #endregion
 
+        private void EnterPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                this.ProcessTabKey(true);
+            }
+        }
     }
 }

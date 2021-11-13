@@ -8,17 +8,54 @@ namespace BusinessLayer
 {
     public class Product : Regularable, IEdible
     {
-        public string Name {set; get; }
+        private float m_protein;
+        private float m_fats;
+        private float m_carbs;
+        private float m_calories;
 
-        public int Gramms {set; get; }
+        public string Name { get; set; }
 
-        public float Fats {set; get; }
+        public int Gramms { get; set; }
 
-        public float Protein {set; get; }
+        public float Fats
+        {
+            set
+            {
+                m_fats = value;
+            }
 
-        public float Carbs {set; get; }
+            get => m_fats * Gramms / 100;
+        }
 
-        public float Calories {set; get; }
+        public float Protein
+        {
+            set
+            {
+                m_protein = value;
+            }
+
+            get => m_protein * Gramms / 100;
+        }
+
+        public float Carbs
+        {
+            set
+            {
+                m_carbs = value;
+            }
+
+            get => m_carbs * Gramms / 100;
+        }
+
+        public float Calories
+        {
+            set
+            {
+                m_calories = value;
+            }
+
+            get => m_calories * Gramms / 100;
+        }
 
         public Product() 
         {
@@ -50,7 +87,7 @@ namespace BusinessLayer
             {
                 if (flag)
                 {
-                    if (product is Product prod && prod.Fats < 0)
+                    if (product is Product prod && prod.m_fats < 0)
                     {
                         message = "Fats can't be less than zero.";
                         flag = false;
@@ -62,7 +99,7 @@ namespace BusinessLayer
             {
                 if (flag)
                 {
-                    if (product is Product prod && prod.Protein < 0)
+                    if (product is Product prod && prod.m_protein < 0)
                     {
                         message = "Protein can't be less than zero.";
                         flag = false;
@@ -74,7 +111,7 @@ namespace BusinessLayer
             {
                 if (flag)
                 {
-                    if (product is Product prod && prod.Calories < 0)
+                    if (product is Product prod && prod.m_calories < 0)
                     {
                         message = "Calories can't be less than zero.";
                         flag = false;
@@ -83,6 +120,16 @@ namespace BusinessLayer
             };
 
 
+        }
+
+        public Product(Product product) : this()
+        {
+            this.Name = product.Name;
+            this.Gramms = product.Gramms;
+            this.Fats = product.Fats;
+            this.Calories = product.Calories;
+            this.Carbs = product.Carbs;
+            this.Protein = product.Protein;
         }
 
         public Product(string name) : this()
