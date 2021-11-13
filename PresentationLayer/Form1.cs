@@ -67,7 +67,7 @@ namespace PresentationLayer
 
         private void AddProductToMealNode(TreeNode mealNode, Product product)
         {
-            if (mealNode.Tag is Meal meal)
+            if (mealNode.Tag is Meal meal && Service.GetCurrentCalories() + product.Calories <= this.currentMealsCaloriesBar.Maximum)
             {
                 int count = mealNode.Nodes.Count;
                 mealNode.Nodes.Add(product.Name);
@@ -327,6 +327,7 @@ namespace PresentationLayer
                         tree.LabelEdit = false;
                         ProductInfoRenew(product);
                         this.productWeightTrackBar.Enabled = true;
+                        this.productWeightTrackBar.Value = product.Gramms;
                     }
                     else
                     {
@@ -474,9 +475,18 @@ namespace PresentationLayer
             {
                 if (sender is TrackBar bar)
                 {
-                    product.Gramms = bar.Value;
-                    ProductInfoRenew(product);
-                    CurenCaloriesChange();
+                    Product product1 = new Product(product);
+                    product1.Gramms = bar.Value;
+                    if (Service.GetCurrentCalories() - product.Calories + product1.Calories > this.currentMealsCaloriesBar.Maximum)
+                    {
+                        bar.Value = product.Gramms;
+                    }
+                    else
+                    {
+                        product.Gramms = bar.Value;
+                        ProductInfoRenew(product);
+                        CurenCaloriesChange();
+                    }
                 }
             }
         }

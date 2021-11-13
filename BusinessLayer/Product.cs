@@ -126,10 +126,10 @@ namespace BusinessLayer
         {
             this.Name = product.Name;
             this.Gramms = product.Gramms;
-            this.Fats = product.Fats;
-            this.Calories = product.Calories;
-            this.Carbs = product.Carbs;
-            this.Protein = product.Protein;
+            this.Fats = product.m_fats;
+            this.Calories = product.m_calories;
+            this.Carbs = product.m_carbs;
+            this.Protein = product.m_protein;
         }
 
         public Product(string name) : this()
