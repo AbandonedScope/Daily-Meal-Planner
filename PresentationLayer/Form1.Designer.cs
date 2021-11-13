@@ -323,7 +323,7 @@ namespace PresentationLayer
             this.productWeightTrackBar.LargeChange = 20;
             this.productWeightTrackBar.Location = new System.Drawing.Point(246, 474);
             this.productWeightTrackBar.Maximum = 1000;
-            this.productWeightTrackBar.Minimum = 1;
+            this.productWeightTrackBar.Minimum = 10;
             this.productWeightTrackBar.Name = "productWeightTrackBar";
             this.productWeightTrackBar.Size = new System.Drawing.Size(416, 56);
             this.productWeightTrackBar.SmallChange = 20;
