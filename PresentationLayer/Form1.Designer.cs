@@ -306,6 +306,8 @@ namespace PresentationLayer
             this.Controls.Add(this.maxCaloriesBar);
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
