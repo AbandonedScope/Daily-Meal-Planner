@@ -40,7 +40,7 @@ namespace PresentationLayer
             this.mealContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.maxCaloriesBar = new System.Windows.Forms.ProgressBar();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.userInformationGroupBox = new System.Windows.Forms.GroupBox();
             this.activityBox = new System.Windows.Forms.ComboBox();
@@ -53,6 +53,7 @@ namespace PresentationLayer
             this.ageLabel = new System.Windows.Forms.Label();
             this.activityLabel = new System.Windows.Forms.Label();
             this.badUserInfo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.currentMealsCaloriesBar = new System.Windows.Forms.ProgressBar();
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
@@ -149,16 +150,16 @@ namespace PresentationLayer
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
             this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(107, 24);
             this.deleteToolStripMenuItem1.Text = "Delete";
-            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem1_Click);
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
-            // progressBar1
+            // maxCaloriesBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(721, 474);
-            this.progressBar1.Maximum = 85694;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(416, 29);
-            this.progressBar1.TabIndex = 3;
-            this.progressBar1.Value = 8955;
+            this.maxCaloriesBar.Location = new System.Drawing.Point(721, 474);
+            this.maxCaloriesBar.Maximum = 5984;
+            this.maxCaloriesBar.Name = "maxCaloriesBar";
+            this.maxCaloriesBar.Size = new System.Drawing.Size(416, 29);
+            this.maxCaloriesBar.TabIndex = 3;
+            this.maxCaloriesBar.Value = 960;
             // 
             // searchBox
             // 
@@ -205,7 +206,6 @@ namespace PresentationLayer
             this.activityBox.Name = "activityBox";
             this.activityBox.Size = new System.Drawing.Size(184, 31);
             this.activityBox.TabIndex = 6;
-            this.activityBox.SelectedIndex = 0;
             // 
             // confirmUserInformationButto
             // 
@@ -288,14 +288,23 @@ namespace PresentationLayer
             this.badUserInfo.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.badUserInfo.ContainerControl = this;
             // 
+            // currentMealsCaloriesBar
+            // 
+            this.currentMealsCaloriesBar.Location = new System.Drawing.Point(721, 510);
+            this.currentMealsCaloriesBar.Maximum = 5984;
+            this.currentMealsCaloriesBar.Name = "currentMealsCaloriesBar";
+            this.currentMealsCaloriesBar.Size = new System.Drawing.Size(416, 29);
+            this.currentMealsCaloriesBar.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 630);
+            this.Controls.Add(this.currentMealsCaloriesBar);
             this.Controls.Add(this.userInformationGroupBox);
             this.Controls.Add(this.searchBox);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.maxCaloriesBar);
             this.Controls.Add(this.mealsTree);
             this.Controls.Add(this.categories_ProductsTree);
             this.Name = "Form1";
@@ -326,7 +335,7 @@ namespace PresentationLayer
         private System.Windows.Forms.ContextMenuStrip mealTreeViewContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar maxCaloriesBar;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.GroupBox userInformationGroupBox;
         private System.Windows.Forms.Label activityLabel;
@@ -339,6 +348,7 @@ namespace PresentationLayer
         private System.Windows.Forms.TextBox ageTextBox;
         private System.Windows.Forms.Button confirmUserInformationButto;
         private System.Windows.Forms.ComboBox activityBox;
+        private System.Windows.Forms.ProgressBar currentMealsCaloriesBar;
     }
 }
 

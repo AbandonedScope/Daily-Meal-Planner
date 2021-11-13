@@ -110,5 +110,15 @@ namespace ServiceLayer
             m_user.Validate(m_user, ref message, ref flag);
             return flag;
         }
+
+        public static int GetCurrentCalories()
+        {
+            return (int)m_dailyRation.Calories;
+        }
+
+        public static int GetDailyMaximum()
+        {
+            return m_user.DailyMaximum;
+        }
     }
 }

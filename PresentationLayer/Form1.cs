@@ -16,9 +16,11 @@ namespace PresentationLayer
     public partial class Form1 : Form
     {
         public Form1()
-        {
+        {   
             InitializeComponent();
+            this.activityBox.SelectedIndex = 0;
         }
+
         private void AddMealToTree(Meal meal)
         {
             int counter = 0;
@@ -45,6 +47,7 @@ namespace PresentationLayer
                 j++;
             }
             Service.AddMealToRation(meal);
+            CurenCaloriesChange();
             this.mealsTree.EndUpdate();
         }
 
@@ -71,6 +74,7 @@ namespace PresentationLayer
                 mealNode.Nodes[count].Tag = product;
                 mealNode.Nodes[count].ContextMenuStrip = this.poductContextMenuStrip;
                 Service.AddProductToMeal(product, meal);
+                CurenCaloriesChange();
             }
 
         }
@@ -180,6 +184,11 @@ namespace PresentationLayer
             }
             this.categories_ProductsTree.EndUpdate();
         }
+
+        private void CurenCaloriesChange()
+        {
+            this.currentMealsCaloriesBar.Value = Service.GetCurrentCalories();
+        }
        
         #region Event Handlers
         private void Form1_Load(object sender, EventArgs e)
@@ -265,19 +274,12 @@ namespace PresentationLayer
             }
         }
 
-        private void DeleteToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (this.mealsTree.SelectedNode != null)
-            {
-                DeleteNode(this.mealsTree.SelectedNode);
-            }
-        }
-
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (this.mealsTree.SelectedNode != null)
             {
                 DeleteNode(this.mealsTree.SelectedNode);
+                CurenCaloriesChange();
             }
         }
 
@@ -319,6 +321,11 @@ namespace PresentationLayer
                 TreeNode? draggedNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
                 if (targetNode != null && (targetNode.Tag is Meal || targetNode.Parent != null) && draggedNode.Tag is Product product)
                 {
+                    if (e.Effect == DragDropEffects.Move)
+                    {
+                        DeleteNode(draggedNode);
+                    }
+
                     if (targetNode.Parent != null)
                     {
                         AddProductToMealNode(targetNode.Parent, product);
@@ -328,11 +335,6 @@ namespace PresentationLayer
                         AddProductToMealNode(targetNode, product);
                     }
                     targetNode.Expand();
-
-                    if(e.Effect == DragDropEffects.Move)
-                    {
-                        DeleteNode(draggedNode);
-                    }
                 }
             }
         }
@@ -411,12 +413,14 @@ namespace PresentationLayer
                     this.searchBox.Enabled = false;
                     this.mealsTree.Enabled = false;
                     MessageBox.Show(message);
+                    this.maxCaloriesBar.Value = this.maxCaloriesBar.Minimum;
                 }
                 else
-                {
+                { 
                     this.categories_ProductsTree.Enabled = true;
                     this.searchBox.Enabled = true;
                     this.mealsTree.Enabled = true;
+                    this.maxCaloriesBar.Value = Service.GetDailyMaximum();
                 }
             }
         }
