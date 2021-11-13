@@ -97,6 +97,8 @@ namespace PresentationLayer
                     nodeToDelete.Remove();
                 }
             }
+
+            this.productWeightTrackBar.Enabled = false;
         }
 
         private void DeleteNodesFromCollection(TreeNodeCollection collection, string text)
@@ -197,7 +199,7 @@ namespace PresentationLayer
             this.proteinTextBox.Text = ((int)product.Protein).ToString();
             this.carbsTextBox.Text = ((int)product.Carbs).ToString();
         }
-       
+
         #region Event Handlers
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -309,17 +311,22 @@ namespace PresentationLayer
             if (sender is TreeView tree)
             {
                 tree.SelectedNode = e.Node;
+
                 if (tree == this.categories_ProductsTree)
                 {
                     this.productWeightTrackBar.Enabled = false;
+                    if (e.Node.Tag is Product product)
+                    {
+                        this.productWeightTrackBar.Value = product.Gramms;
+                    }
                 }
                 else if (tree == this.mealsTree)
                 {
-                    this.productWeightTrackBar.Enabled = true;
                     if (e.Node.Tag is Product product)
                     {
                         tree.LabelEdit = false;
                         ProductInfoRenew(product);
+                        this.productWeightTrackBar.Enabled = true;
                     }
                     else
                     {
@@ -328,6 +335,8 @@ namespace PresentationLayer
                 }
             }
         }
+
+
 
         private void MealsTree_DragEnter(object sender, DragEventArgs e)
         {
@@ -472,9 +481,6 @@ namespace PresentationLayer
             }
         }
 
-
-        #endregion
-
         private void EnterPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
@@ -482,5 +488,8 @@ namespace PresentationLayer
                 this.ProcessTabKey(true);
             }
         }
+        #endregion
+
+
     }
 }
