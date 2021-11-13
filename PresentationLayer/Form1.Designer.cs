@@ -159,7 +159,6 @@ namespace PresentationLayer
             this.maxCaloriesBar.Name = "maxCaloriesBar";
             this.maxCaloriesBar.Size = new System.Drawing.Size(416, 29);
             this.maxCaloriesBar.TabIndex = 3;
-            this.maxCaloriesBar.Value = 960;
             // 
             // searchBox
             // 
