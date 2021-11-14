@@ -13,9 +13,9 @@ using BusinessLayer;
 
 namespace PresentationLayer
 {
-    public partial class Form1 : Form
+    public partial class DayliMealPlanner : Form
     {
-        public Form1()
+        public DayliMealPlanner()
         {   
             InitializeComponent();
             this.activityBox.SelectedIndex = 0;
@@ -497,7 +497,7 @@ namespace PresentationLayer
                 this.ProcessTabKey(true);
             }
         }
-        private void SveButtonClick(object sender, EventArgs e)
+        private void SaveButtonClick(object sender, EventArgs e)
         {
             this.savePDFDialog.ShowDialog();
             if (!string.IsNullOrEmpty(this.savePDFDialog.FileName))
@@ -506,9 +506,6 @@ namespace PresentationLayer
                 Service.SaveToPDF(this.savePDFDialog.FileName);
             }
         }
-
         #endregion
-
-        
     }
 }

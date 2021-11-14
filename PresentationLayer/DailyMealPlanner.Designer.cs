@@ -1,7 +1,7 @@
 ﻿
 namespace PresentationLayer
 {
-    partial class Form1
+    partial class DayliMealPlanner
     {
         /// <summary>
         ///  Required designer variable.
@@ -459,7 +459,7 @@ namespace PresentationLayer
             this.saveToPDFButton.TabIndex = 10;
             this.saveToPDFButton.Text = "Save to PDF";
             this.saveToPDFButton.UseVisualStyleBackColor = true;
-            this.saveToPDFButton.Click += new System.EventHandler(this.SveButtonClick);
+            this.saveToPDFButton.Click += new System.EventHandler(this.SaveButtonClick);
             // 
             // savePDFDialog
             // 
@@ -467,7 +467,7 @@ namespace PresentationLayer
             this.savePDFDialog.FileName = "Daily Ration";
             this.savePDFDialog.InitialDirectory = "C:\\users\\";
             // 
-            // Form1
+            // DayliMealPlanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -483,10 +483,10 @@ namespace PresentationLayer
             this.Controls.Add(this.categories_ProductsTree);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "DayliMealPlanner";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Daily Meal Planner";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.mealTreeViewContextMenuStrip.ResumeLayout(false);
             this.poductContextMenuStrip.ResumeLayout(false);
