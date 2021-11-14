@@ -8,7 +8,7 @@ namespace BusinessLayer
 {
     public class DailyRation : IEdible
     {
-        private HashSet<Meal> m_meals;
+        private List<Meal> m_meals;
 
         public float Calories
         {
@@ -24,6 +24,13 @@ namespace BusinessLayer
             }
         }
 
+        public List<Meal> Meals
+        {
+            get
+            {
+                return m_meals;
+            }
+        }
 
         public float Protein
         {

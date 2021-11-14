@@ -287,8 +287,6 @@ namespace PresentationLayer
                     }
                 }
             }
-            
-
         }
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -318,6 +316,7 @@ namespace PresentationLayer
                     if (e.Node.Tag is Product product)
                     {
                         this.productWeightTrackBar.Value = product.Gramms;
+                        ProductInfoRenew(product);
                     }
                 }
                 else if (tree == this.mealsTree)
@@ -336,8 +335,6 @@ namespace PresentationLayer
                 }
             }
         }
-
-
 
         private void MealsTree_DragEnter(object sender, DragEventArgs e)
         {
@@ -457,6 +454,7 @@ namespace PresentationLayer
                     this.mealsTree.Enabled = false;
                     this.maxCaloriesBar.Value = this.maxCaloriesBar.Minimum;
                     this.productWeightTrackBar.Enabled = false;
+                    this.saveToPDFButton.Enabled = false;
                     MessageBox.Show(message);
                 }
                 else
@@ -464,6 +462,7 @@ namespace PresentationLayer
                     this.categories_ProductsTree.Enabled = true;
                     this.searchBox.Enabled = true;
                     this.mealsTree.Enabled = true;
+                    this.saveToPDFButton.Enabled = true;
                     this.maxCaloriesBar.Value = Service.GetDailyMaximum();
                 }
             }
@@ -498,8 +497,18 @@ namespace PresentationLayer
                 this.ProcessTabKey(true);
             }
         }
+        private void SveButtonClick(object sender, EventArgs e)
+        {
+            this.savePDFDialog.ShowDialog();
+            if (!string.IsNullOrEmpty(this.savePDFDialog.FileName))
+            {
+                this.savePDFDialog.InitialDirectory = this.savePDFDialog.FileName;
+                Service.SaveToPDF(this.savePDFDialog.FileName);
+            }
+        }
+
         #endregion
 
-
+        
     }
 }

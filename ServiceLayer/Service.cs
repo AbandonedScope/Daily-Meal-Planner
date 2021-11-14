@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using BusinessLayer;
 using DataAccessLayer;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+
 #nullable enable
 
 namespace ServiceLayer
@@ -119,6 +123,80 @@ namespace ServiceLayer
         public static int GetDailyMaximum()
         {
             return m_user.DailyMaximum;
+        }
+
+        public static void SaveToPDF(string filename)
+        {
+            PdfDocument document = new PdfDocument();
+            PdfPage page = document.Pages.Add();
+            PdfGraphics graphics = page.Graphics;
+            PdfFont headerFont = new PdfTrueTypeFont(new Font("Segoe UI", 14, FontStyle.Bold | FontStyle.Italic), 40, true);
+            PdfFont subHeaderFont = new PdfTrueTypeFont(new Font("Segoe UI", 14), 18, true);
+            PdfFont simpleTextFont = new PdfTrueTypeFont(new Font("Segoe UI", 14), 14, true);
+
+            PdfSolidBrush brush = new PdfSolidBrush(Color.FromArgb(56, 65, 74));
+            PdfSolidBrush linesBrush = new PdfSolidBrush(Color.FromArgb(104, 121, 140));
+            PdfBrush solidBrush = new PdfSolidBrush(Color.FromArgb(171, 205, 239));
+            PointF prevPoint = new PointF(0, 0);
+            PointF prevProductPoint;
+            SizeF headerSize = new SizeF(graphics.ClientSize.Width, 50);
+            SizeF mealSize = new SizeF(graphics.ClientSize.Width, 40);
+            RectangleF bounds = new RectangleF(prevPoint, headerSize);
+            PdfLinearGradientBrush linearGradientBrush = new PdfLinearGradientBrush(prevPoint, new PointF(headerSize.Width, 0), Color.FromArgb(171, 205, 239), Color.Transparent);
+            PdfPath path = RoundedRectangle(bounds);
+            graphics.DrawPath(solidBrush, path);
+
+            graphics.DrawString("Your Daily Ration", headerFont, brush, prevPoint.X + 90, prevPoint.Y, new PdfStringFormat(PdfTextAlignment.Justify));
+            prevPoint.Y += bounds.Height + 10;
+            graphics.DrawLine(new PdfPen(linesBrush, 5), prevPoint, new PointF(prevPoint.X + headerSize.Width, prevPoint.Y));
+            prevPoint.Y += 10;
+            graphics.DrawString($"User Information :", subHeaderFont, brush, prevPoint);
+            prevPoint.Y += simpleTextFont.Size * 1.5f;
+            prevPoint.X += 10;
+            graphics.DrawString($"Age : {m_user.Age} years", simpleTextFont, brush, prevPoint);
+            prevPoint.Y += simpleTextFont.Size * 1.5f;
+            graphics.DrawString($"Height : {m_user.Height} cm", simpleTextFont, brush, prevPoint);
+            prevPoint.Y += simpleTextFont.Size * 1.5f;
+            graphics.DrawString($"Weight : {m_user.Weight} kg", simpleTextFont, brush, prevPoint);
+            prevPoint.Y += simpleTextFont.Size * 1.5f;
+            graphics.DrawString($"Daily Calories to maintain current weight : {m_user.DailyMaximum} kcal", simpleTextFont, brush, prevPoint);
+            prevPoint.Y += simpleTextFont.Size * 1.5f + 10;
+            prevPoint.X -= 10;
+            graphics.DrawLine(new PdfPen(linesBrush, 5), prevPoint, new PointF(prevPoint.X + headerSize.Width, prevPoint.Y));
+            prevPoint.Y += 10;
+            foreach (Meal meal in m_dailyRation.Meals)
+            {
+                PdfPath buffPath = RoundedRectangle(new RectangleF (prevPoint, new SizeF(graphics.ClientSize.Width, subHeaderFont.Size * 1.5f)));
+                graphics.DrawPath(linearGradientBrush, buffPath);
+                prevPoint.X += 5;
+                graphics.DrawString($"{meal.Name} :", subHeaderFont, brush, prevPoint);
+                prevPoint.X -= 5;
+                prevPoint.Y += subHeaderFont.Size * 1.5f + 8;
+                prevProductPoint = prevPoint;
+                prevProductPoint.X += 45;
+                foreach (Product product in meal.Items)
+                {
+                    graphics.DrawString(product.Name, simpleTextFont, brush, prevProductPoint);
+                    prevProductPoint.Y += simpleTextFont.Size * 1.5f + 5;
+                }
+                prevPoint.Y = prevProductPoint.Y;
+            }
+            graphics.DrawLine(new PdfPen(linesBrush, 5), prevPoint, new PointF(prevPoint.X + headerSize.Width, prevPoint.Y));
+            prevPoint.Y += 10;
+            graphics.DrawString($"Current calories : {m_dailyRation.Calories} kcal", subHeaderFont, brush, prevPoint);
+            document.Save(filename);
+            document.Close(true);
+        }
+
+        private static PdfPath RoundedRectangle(RectangleF bounds)
+        {
+            PdfPath path = new();
+            path.AddArc(bounds.X, bounds.Y, bounds.Height / 2, bounds.Height / 2, 180, 90);
+            path.AddArc(bounds.X + bounds.Width - bounds.Height / 2, bounds.Y, bounds.Height / 2, bounds.Height / 2, 270, 90);
+            path.AddArc(bounds.X + bounds.Width - bounds.Height / 2, bounds.Y + bounds.Height / 2, bounds.Height / 2, bounds.Height / 2, 0, 90);
+            path.AddArc(bounds.X, bounds.Y + bounds.Height / 2, bounds.Height / 2, bounds.Height / 2, 90, 90);
+
+            return path;
         }
     }
 }

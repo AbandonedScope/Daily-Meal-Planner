@@ -66,6 +66,8 @@ namespace PresentationLayer
             this.fatsTextBox = new System.Windows.Forms.TextBox();
             this.caloriesTextBox = new System.Windows.Forms.TextBox();
             this.grammsTextBox = new System.Windows.Forms.TextBox();
+            this.saveToPDFButton = new System.Windows.Forms.Button();
+            this.savePDFDialog = new System.Windows.Forms.SaveFileDialog();
             this.mealTreeViewContextMenuStrip.SuspendLayout();
             this.poductContextMenuStrip.SuspendLayout();
             this.mealContextMenuStrip.SuspendLayout();
@@ -447,11 +449,30 @@ namespace PresentationLayer
             this.grammsTextBox.Size = new System.Drawing.Size(106, 25);
             this.grammsTextBox.TabIndex = 9;
             // 
+            // saveToPDFButton
+            // 
+            this.saveToPDFButton.Enabled = false;
+            this.saveToPDFButton.Font = new System.Drawing.Font("Segoe UI Black", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.saveToPDFButton.Location = new System.Drawing.Point(1011, 578);
+            this.saveToPDFButton.Name = "saveToPDFButton";
+            this.saveToPDFButton.Size = new System.Drawing.Size(126, 35);
+            this.saveToPDFButton.TabIndex = 10;
+            this.saveToPDFButton.Text = "Save to PDF";
+            this.saveToPDFButton.UseVisualStyleBackColor = true;
+            this.saveToPDFButton.Click += new System.EventHandler(this.SveButtonClick);
+            // 
+            // savePDFDialog
+            // 
+            this.savePDFDialog.DefaultExt = "pdf";
+            this.savePDFDialog.FileName = "Daily Ration";
+            this.savePDFDialog.InitialDirectory = "C:\\users\\";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1164, 630);
+            this.Controls.Add(this.saveToPDFButton);
             this.Controls.Add(this.productInfoGroupBox);
             this.Controls.Add(this.productWeightTrackBar);
             this.Controls.Add(this.currentMealsCaloriesBar);
@@ -519,6 +540,8 @@ namespace PresentationLayer
         private System.Windows.Forms.TextBox grammsTextBox;
         private System.Windows.Forms.Label carbsLabel;
         private System.Windows.Forms.Label proteinLabel;
+        private System.Windows.Forms.Button saveToPDFButton;
+        private System.Windows.Forms.SaveFileDialog savePDFDialog;
     }
 }
 
