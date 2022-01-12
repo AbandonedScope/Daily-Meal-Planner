@@ -164,7 +164,7 @@ namespace PresentationLayer
 
         private void LoadCategoryTree()
         {
-            Service.SetPath(@"D:\Лабораторные работы\Семестр 3\PL\Daily Meal Planner\Daily Meal Planner\DataAccessLayer\FoodProducts.xml");
+            Service.SetPath("FoodProducts.xml");
             this.categories_ProductsTree.BeginUpdate();
             this.categories_ProductsTree.Nodes.Clear();
             int i = 0, j;
